@@ -7,23 +7,24 @@ password
 
 student
 ...................
--id
+-idNumber
 -name
 -surname
--student-number
+-studentNumber-number
 -course
 -course_code --foreignKey
+- phoneNumber
 
 course
 ..........
-id
+courseId
 name
 course_code
-List<module> module_code
+List<module> modules
 
 modules
 ..........
-id
+moduleId
 name
 module_code
 lecture
