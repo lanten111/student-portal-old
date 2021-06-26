@@ -5,11 +5,19 @@ public class Student {
     private String idNumber;
     private String name;
     private String surname;
+    private String email;
     private String studentNumber;
-    private String course;
-    private String courseCode;
     private Long phoneNumber;
+    private Course course;
+    private Login login;
 
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
 
     public String getIdNumber() {
         return idNumber;
@@ -43,21 +51,6 @@ public class Student {
         this.studentNumber = studentNumber;
     }
 
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public String getCourseCode() {
-        return courseCode;
-    }
-
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
 
     public Long getPhoneNumber() {
         return phoneNumber;
@@ -65,5 +58,13 @@ public class Student {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
