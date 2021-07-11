@@ -1,6 +1,5 @@
 package co.za.domain;
 
-import java.sql.Date;
 
 public class Module {
 
@@ -8,7 +7,7 @@ public class Module {
     private String name;
     private String moduleCode;
     private Lecturer lecturer;
-    private Date moduleTime;
+    private String moduleTime;
     private ModuleMaterials moduleMaterials;
 
     public String getModuleId() {
@@ -43,11 +42,11 @@ public class Module {
         this.lecturer = lecturer;
     }
 
-    public Date getModuleTime() {
+    public String getModuleTime() {
         return moduleTime;
     }
 
-    public void setModuleTime(Date moduleTime) {
+    public void setModuleTime(String moduleTime) {
         this.moduleTime = moduleTime;
     }
 

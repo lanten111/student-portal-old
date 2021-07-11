@@ -1,17 +1,15 @@
 package co.za.domain;
 
-import com.itextpdf.text.Document;
-
 public class ModuleMaterials {
 
-    private Document moduleGuide;
+    private String moduleGuide;
     private String bookName;
 
-    public Document getModuleGuide() {
+    public String getModuleGuide() {
         return moduleGuide;
     }
 
-    public void setModuleGuide(Document moduleGuide) {
+    public void setModuleGuide(String moduleGuide) {
         this.moduleGuide = moduleGuide;
     }
 

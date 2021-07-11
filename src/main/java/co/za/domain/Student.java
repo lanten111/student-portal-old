@@ -1,7 +1,15 @@
 package co.za.domain;
 
+
+import org.springframework.data.annotation.Id;
+
+import java.math.BigInteger;
+
+
 public class Student {
 
+    @Id
+    private BigInteger id;
     private String idNumber;
     private String name;
     private String surname;
@@ -10,6 +18,22 @@ public class Student {
     private Long phoneNumber;
     private Course course;
     private Login login;
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Login getLogin() {
         return login;
@@ -66,5 +90,20 @@ public class Student {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", idNumber='" + idNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", studentNumber='" + studentNumber + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", course=" + course +
+                ", login=" + login +
+                '}';
     }
 }
