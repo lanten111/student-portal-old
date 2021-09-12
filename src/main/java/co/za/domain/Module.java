@@ -1,14 +1,31 @@
 package co.za.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+//@Table(name="ctable")
 public class Module {
+    @Id
+    @Column(name = "id", nullable = false)
+    private int id;
 
     private String moduleId;
     private String name;
     private String moduleCode;
-    private Lecturer lecturer;
+    private int lecturer;
     private String moduleTime;
-    private ModuleMaterials moduleMaterials;
+    private int moduleMaterials;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getModuleId() {
         return moduleId;
@@ -34,11 +51,11 @@ public class Module {
         this.moduleCode = moduleCode;
     }
 
-    public Lecturer getLecturer() {
+    public int getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Lecturer lecturer) {
+    public void setLecturer(int lecturer) {
         this.lecturer = lecturer;
     }
 
@@ -50,11 +67,11 @@ public class Module {
         this.moduleTime = moduleTime;
     }
 
-    public ModuleMaterials getModuleMaterials() {
+    public int getModuleMaterials() {
         return moduleMaterials;
     }
 
-    public void setModuleMaterials(ModuleMaterials moduleMaterials) {
+    public void setModuleMaterials(int moduleMaterials) {
         this.moduleMaterials = moduleMaterials;
     }
 }

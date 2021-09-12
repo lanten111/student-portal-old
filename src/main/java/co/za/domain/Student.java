@@ -1,29 +1,31 @@
 package co.za.domain;
 
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
 import java.math.BigInteger;
 
 
+@Entity
 public class Student {
 
     @Id
-    private BigInteger id;
+//    @Column(name = "id", nullable = false)
+    private int id;
+
     private String idNumber;
     private String name;
     private String surname;
     private String email;
     private String studentNumber;
     private Long phoneNumber;
-    private Course course;
-    private Login login;
+    private int course;
+    private int login;
 
-    public BigInteger getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -35,11 +37,11 @@ public class Student {
         this.email = email;
     }
 
-    public Login getLogin() {
+    public int getLogin() {
         return login;
     }
 
-    public void setLogin(Login login) {
+    public void setLogin(int login) {
         this.login = login;
     }
 
@@ -84,11 +86,11 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public Course getCourse() {
+    public int getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
+    public void setCourse(int course) {
         this.course = course;
     }
 

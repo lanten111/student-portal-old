@@ -1,21 +1,29 @@
 package co.za.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
-public class Course {
 
-    private String courseId;
+@Entity
+public class Course {
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private String name;
     private String course_code;
-    private List<Module> modules;
+    private int modules;
 
-    public String getCourseId() {
-        return courseId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setId(Long id) {
+        this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -33,11 +41,11 @@ public class Course {
         this.course_code = course_code;
     }
 
-    public List<Module> getModules() {
+    public int getModules() {
         return modules;
     }
 
-    public void setModules(List<Module> modules) {
+    public void setModules(int modules) {
         this.modules = modules;
     }
 }
