@@ -1,38 +1,55 @@
 package co.za.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 //@Table(name="ctable")
 public class Module {
+
     @Id
-    @Column(name = "id", nullable = false)
-    private int id;
-
-    private String moduleId;
+    private Long id;
     private String name;
-    private String moduleCode;
-    private int lecturer;
-    private String moduleTime;
-    private int moduleMaterials;
+    private String modulecode;
+    private String moduletime;
 
-    public int getId() {
+    @ManyToOne
+    @JoinColumn(name = "lecturer")
+    private Lecturer lecturer;
+
+//    @ManyToOne
+//    @JoinColumn(name = "modulematerials")
+//    private ModuleMaterials modulematerials;
+
+    public String getModulecode() {
+        return modulecode;
+    }
+
+    public void setModulecode(String modulecode) {
+        this.modulecode = modulecode;
+    }
+
+    public String getModuletime() {
+        return moduletime;
+    }
+
+    public void setModuletime(String moduletime) {
+        this.moduletime = moduletime;
+    }
+
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getModuleId() {
-        return moduleId;
-    }
-
-    public void setModuleId(String moduleId) {
-        this.moduleId = moduleId;
     }
 
     public String getName() {
@@ -43,35 +60,5 @@ public class Module {
         this.name = name;
     }
 
-    public String getModuleCode() {
-        return moduleCode;
-    }
 
-    public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
-    }
-
-    public int getLecturer() {
-        return lecturer;
-    }
-
-    public void setLecturer(int lecturer) {
-        this.lecturer = lecturer;
-    }
-
-    public String getModuleTime() {
-        return moduleTime;
-    }
-
-    public void setModuleTime(String moduleTime) {
-        this.moduleTime = moduleTime;
-    }
-
-    public int getModuleMaterials() {
-        return moduleMaterials;
-    }
-
-    public void setModuleMaterials(int moduleMaterials) {
-        this.moduleMaterials = moduleMaterials;
-    }
 }

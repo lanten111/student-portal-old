@@ -8,33 +8,24 @@ import javax.persistence.Id;
 public class ModuleMaterials {
 
     @Id
-    @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
+//    private String moduleguide;
+    private String bookname;
 
-    private String moduleGuide;
-    private String bookName;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getModuleGuide() {
-        return moduleGuide;
+    public String getBookname() {
+        return bookname;
     }
 
-    public void setModuleGuide(String moduleGuide) {
-        this.moduleGuide = moduleGuide;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setBookname(String bookname) {
+        this.bookname = bookname;
     }
 }

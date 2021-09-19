@@ -3,23 +3,48 @@ package co.za.domain;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.List;
 
 
 @Entity
 public class Student {
 
     @Id
-//    @Column(name = "id", nullable = false)
     private int id;
 
+    @Column(name = "idnumber")
     private String idNumber;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "studentnumber")
     private String studentNumber;
+
+    @Column(name = "phonenumber")
     private Long phoneNumber;
-    private int course;
-    private int login;
+
+    @ManyToOne
+    @JoinColumn(name = "course")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "login")
+    private Login login;
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
 
     public int getId() {
         return id;
@@ -35,14 +60,6 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getLogin() {
-        return login;
-    }
-
-    public void setLogin(int login) {
-        this.login = login;
     }
 
     public String getIdNumber() {
@@ -86,11 +103,11 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(int course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 

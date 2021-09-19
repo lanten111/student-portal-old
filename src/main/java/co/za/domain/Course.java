@@ -1,20 +1,20 @@
 package co.za.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
 public class Course {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
 
+    @Id
+    private Long id;
     private String name;
     private String course_code;
-    private int modules;
+
+    @ManyToOne
+    @JoinColumn(name = "module")
+    private Module module;
 
     public Long getId() {
         return id;
@@ -23,7 +23,6 @@ public class Course {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -41,11 +40,11 @@ public class Course {
         this.course_code = course_code;
     }
 
-    public int getModules() {
-        return modules;
+    public Module getModule() {
+        return module;
     }
 
-    public void setModules(int modules) {
-        this.modules = modules;
+    public void setModule(Module module) {
+        this.module = module;
     }
 }

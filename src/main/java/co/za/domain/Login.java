@@ -3,16 +3,18 @@ package co.za.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class Login {
-    @Id
-    @Column(name = "id", nullable = false)
-    private int id;
 
+    @Id
+    private int id;
     private String username;
     private String password;
-    private String lastLogin;
+
+    @Column(name = "lastlogin")
+    private Date lastLogin;
 
     public int getId() {
         return id;
@@ -22,11 +24,11 @@ public class Login {
        return this.id = id;
     }
 
-    public String getLastLogin() {
+    public Date getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(String lastLogin) {
+    public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
 

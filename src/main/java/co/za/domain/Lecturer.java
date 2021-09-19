@@ -6,10 +6,9 @@ import javax.persistence.Id;
 
 @Entity
 public class Lecturer {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
 
+    @Id
+    private Long id;
     private String name;
     private String surname;
 

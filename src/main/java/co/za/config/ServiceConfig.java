@@ -15,8 +15,13 @@ import javax.sql.DataSource;
 public class ServiceConfig {
 
     @Bean
-    public StudentService getStudentService(StudentRepo studentRepo){
+    public StudentService studentService(StudentRepo studentRepo){
         return new StudentService();
+    }
+
+    @Bean
+    public StudentAPI studentAPI(Environment environment){
+        return new StudentAPI(environment);
     }
 
 //    @Bean
