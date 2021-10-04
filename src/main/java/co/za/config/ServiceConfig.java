@@ -1,7 +1,6 @@
 package co.za.config;
 
 import co.za.api.StudentAPI;
-import co.za.repository.StudentRepo;
 import co.za.service.StudentService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +13,10 @@ import javax.sql.DataSource;
 @Configuration
 public class ServiceConfig {
 
-    @Bean
-    public StudentService studentService(StudentRepo studentRepo){
-        return new StudentService();
-    }
+//    @Bean
+//    public StudentService studentService(StudentRepo studentRepo){
+//        return new StudentService();
+//    }
 
     @Bean
     public StudentAPI studentAPI(Environment environment){

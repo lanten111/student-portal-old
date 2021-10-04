@@ -1,6 +1,5 @@
 package co.za.config;
 
-import co.za.repository.StudentRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

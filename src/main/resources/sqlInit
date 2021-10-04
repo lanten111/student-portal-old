@@ -23,14 +23,12 @@ create table Lecturer
     lecturerSurname varchar(100)
 );
 
-
 create table ModuleMaterials
 (
     id serial primary key,
     moduleGuide bytea,
     bookName varchar(500)
 );
-
 
 create table Module
 (

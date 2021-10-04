@@ -9,14 +9,14 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatasourceConfig {
-
-    @Bean
-    public DataSource dataSource(Environment environment){
-        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.password("postgres")
-                .username("postgres")
-                .url("jdbc:postgresql://localhost:5432/studentdb")
-                .driverClassName("org.postgresql.Driver");
-        return dataSourceBuilder.build();
-    }
+//
+//    @Bean
+//    public DataSource dataSource(Environment environment){
+//        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+//        dataSourceBuilder.password("postgres")
+//                .username("postgres")
+//                .url("jdbc:postgresql://localhost:5432/studentdb")
+//                .driverClassName("org.postgresql.Driver");
+//        return dataSourceBuilder.build();
+//    }
 }

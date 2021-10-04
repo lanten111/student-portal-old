@@ -26,12 +26,12 @@ public class StudentAPI {
     }
 
     @GetMapping(path = "/student/{studentNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Student> getStudent(@PathVariable(value ="studentNumber") String studentNumber){
-//        StudentService studentService = new StudentService();
-//        environment.getRequiredProperty("time");
-        List<Student> student =  studentService.getStudentByStudentNumber(studentNumber);
-        System.out.println("");
-        return student;
+    public String getStudent(@PathVariable(value ="studentNumber") String studentNumber){
+
+//        List<Student> student =  studentService.getStudentByStudentNumber(studentNumber);
+//        Student student1 = student.get(0);
+        return "YAy it works";
+
     }
 }
 
