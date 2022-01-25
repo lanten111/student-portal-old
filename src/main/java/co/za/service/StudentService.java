@@ -1,42 +1,78 @@
 package co.za.service;
 
+import co.za.DTO.StudentTo;
+import co.za.Exceptions.StudentNotFoundException;
+import co.za.domain.Student;
+import co.za.repository.StudentRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class StudentService {
 
-//    @Autowired
-//    private StudentRepo studentRepo;
+    private final StudentRepo studentRepo;
 
-//    public StudentService(StudentRepo studentRepo) {
-//        this.studentRepo = studentRepo;
-//    }
+    private final SaveInterface saveInterface;
 
-    public String getStudentByStudentNumber(String studentNumber){
-//        List<Student> students = studentRepo.findAllByStudentNumber(studentNumber);
-        System.out.println();
-        return  "Yay it works";
+    public StudentService(StudentRepo studentRepo, SaveInterface saveInterface) {
+        this.studentRepo = studentRepo;
+        this.saveInterface = saveInterface;
     }
-    
 
+    public Student getStudent(String studentNumber){
+        Student student = studentRepo.findAllByStudentNumber(studentNumber);
 
-    public static void main(String [] args){
-
-        String firstWord = "I am a spring.boot developer and I enjoy doing android in my spare time";
-        String[]  firstWordArray = firstWord.split(" ");
-        List<String> s = new ArrayList<>();
-
-        Boolean skip = true;
-        String newString = "";
-        for ( int i = firstWordArray.length - 1 ; i >= 0; i--){
-            if (skip){
-                newString = newString  +" "+ firstWordArray[i];
-                skip = !skip;
-            }
+        if (student == null){
+            throw new StudentNotFoundException(studentNumber);
         }
-        System.out.println(newString);
+        return studentRepo.findAllByStudentNumber(studentNumber);
     }
+
+    public Student getStudent(int id){
+        return studentRepo.findAllById(id);
+    }
+
+    public List<Student> getAllStudent(){
+        return studentRepo.findAll();
+    }
+
+    public void saveStudent(StudentTo studentTo){
+        saveInterface.saveStudent(studentTo);
+    }
+
+
+
+
+
+
+
+
+
+//    public static void main(String [] args){
+//
+//        //create a list of numbers char from the int
+//        int num = 234324;
+//        List<Integer> numList = new ArrayList<>();
+//        String numAsStringList = String.parse(num).toCharArray;
+//        for (int i = 0; i < numAsStringList.size(); i++ ){
+//            numList.add(numAsStringList.get(i))
+//        }
+//        Array.sort(numList);
+//
+//
+////     split int int char
+////     String numAsString = String.valueOf(num)';
+//        //split string into an array
+//        numList = numList.split();
+////     order the list of number asceding
+//        numList = numList.sort();
+////     build string with sorted number
+//        String newNum = "";
+//        for (int i = 0; i < numList.size; i++){
+//            newNum = newNum + numList[i];
+//        }
+////     covert newNum to int and return
+//        return Integer.arse(newNum);
+//    }
 }

@@ -1,25 +1,53 @@
 package co.za.domain;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.Objects;
 
 @Entity
-//@Table(name="ctable")
 public class Module {
-
-    @Id
-    private Long id;
-    private String name;
+    private int id;
+    private String moduleid;
+    private String modulename;
     private String modulecode;
-    private String moduletime;
+    private Integer lecturer;
+    private Date moduletime;
+    private Integer course;
+    private Integer modulematerials;
 
-    @ManyToOne
-    @JoinColumn(name = "lecturer")
-    private Lecturer lecturer;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
+    }
 
-//    @ManyToOne
-//    @JoinColumn(name = "modulematerials")
-//    private ModuleMaterials modulematerials;
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    @Basic
+    @Column(name = "moduleid", nullable = true, length = 100)
+    public String getModuleid() {
+        return moduleid;
+    }
+
+    public void setModuleid(String moduleid) {
+        this.moduleid = moduleid;
+    }
+
+    @Basic
+    @Column(name = "modulename", nullable = true, length = 100)
+    public String getModulename() {
+        return modulename;
+    }
+
+    public void setModulename(String modulename) {
+        this.modulename = modulename;
+    }
+
+    @Basic
+    @Column(name = "modulecode", nullable = true, length = 10)
     public String getModulecode() {
         return modulecode;
     }
@@ -28,37 +56,56 @@ public class Module {
         this.modulecode = modulecode;
     }
 
-    public String getModuletime() {
-        return moduletime;
-    }
-
-    public void setModuletime(String moduletime) {
-        this.moduletime = moduletime;
-    }
-
-    public Lecturer getLecturer() {
+    @Basic
+    @Column(name = "lecturer", nullable = true)
+    public Integer getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Lecturer lecturer) {
+    public void setLecturer(Integer lecturer) {
         this.lecturer = lecturer;
     }
 
-    public Long getId() {
-        return id;
+    @Basic
+    @Column(name = "moduletime", nullable = true)
+    public Date getModuletime() {
+        return moduletime;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setModuletime(Date moduletime) {
+        this.moduletime = moduletime;
     }
 
-    public String getName() {
-        return name;
+    @Basic
+    @Column(name = "course", nullable = true)
+    public Integer getCourse() {
+        return course;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourse(Integer course) {
+        this.course = course;
     }
 
+    @Basic
+    @Column(name = "modulematerials", nullable = true)
+    public Integer getModulematerials() {
+        return modulematerials;
+    }
 
+    public void setModulematerials(Integer modulematerials) {
+        this.modulematerials = modulematerials;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Module module = (Module) o;
+        return id == module.id && Objects.equals(moduleid, module.moduleid) && Objects.equals(modulename, module.modulename) && Objects.equals(modulecode, module.modulecode) && Objects.equals(lecturer, module.lecturer) && Objects.equals(moduletime, module.moduletime) && Objects.equals(course, module.course) && Objects.equals(modulematerials, module.modulematerials);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, moduleid, modulename, modulecode, lecturer, moduletime, course, modulematerials);
+    }
 }

@@ -1,5 +1,6 @@
 package co.za.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,14 +10,10 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatasourceConfig {
-//
+
 //    @Bean
+//    @ConfigurationProperties(prefix = "datasource")
 //    public DataSource dataSource(Environment environment){
-//        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-//        dataSourceBuilder.password("postgres")
-//                .username("postgres")
-//                .url("jdbc:postgresql://localhost:5432/studentdb")
-//                .driverClassName("org.postgresql.Driver");
-//        return dataSourceBuilder.build();
+//        return DataSourceBuilder.create().build();
 //    }
 }
