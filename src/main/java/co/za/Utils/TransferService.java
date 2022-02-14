@@ -1,4 +1,4 @@
-package co.za.service;
+package co.za.Utils;
 
 import co.za.DTO.StudentTo;
 import co.za.domain.Student;
@@ -12,7 +12,7 @@ public class TransferService {
         student.setName(studentTo.getName());
         student.setSurname(studentTo.getSurname());
         student.setIdNumber(studentTo.getIdNumber());
-        student.setId(studentTo.getCourse());
+        student.setPhoneNumber(studentTo.getPhoneNumber());
         return student;
     }
 }

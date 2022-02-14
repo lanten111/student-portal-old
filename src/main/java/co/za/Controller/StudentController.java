@@ -3,6 +3,7 @@ package co.za.Controller;
 import co.za.DTO.StudentTo;
 import co.za.domain.Student;
 import co.za.service.StudentService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -24,13 +25,12 @@ public class StudentController {
     }
 
     @GetMapping(path = "studentNumber/{studentNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Student getStudentByStudentNumber(@PathVariable(value ="studentNumber") String studentNumber){
+    public Student getStudentByStudentNumber(@PathVariable String studentNumber){
         return studentService.getStudent(studentNumber);
-
     }
 
     @GetMapping(path = "id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Student getStudentById(@PathVariable(value ="id") int id){
+    public Student getStudentById(@PathVariable(value ="id") long id){
         return studentService.getStudent(id);
 
     }
@@ -40,9 +40,9 @@ public class StudentController {
         return studentService.getAllStudent();
     }
 
-    @PostMapping(path = "/insertStudent")
-    public void insertStudent(@RequestBody StudentTo studentTo){
-        studentService.saveStudent(studentTo);
+    @PostMapping(path = "/create-account")
+    public void registerStudent(@RequestBody StudentTo studentTo){
+        studentService.studentRegister(studentTo);
     }
 }
 

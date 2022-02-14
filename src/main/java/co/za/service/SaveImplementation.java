@@ -1,22 +1,23 @@
 package co.za.service;
 
 import co.za.DTO.StudentTo;
+import co.za.Utils.TransferService;
 import co.za.domain.Student;
-import co.za.repository.StudentRepo;
+import co.za.repository.StudentRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SaveImplementation implements SaveInterface {
 
-    StudentRepo studentRepo;
+    StudentRepository studentRepository;
 
-    public SaveImplementation(StudentRepo studentRepo){
-        this.studentRepo = studentRepo;
+    public SaveImplementation(StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
     }
 
     @Override
     public void saveStudent(StudentTo studentTo) {
         Student student = TransferService.transferStudent(studentTo);
-        studentRepo.save(student);
+        studentRepository.save(student);
     }
 }

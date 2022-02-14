@@ -2,44 +2,80 @@ package co.za.service;
 
 import co.za.DTO.StudentTo;
 import co.za.Exceptions.StudentNotFoundException;
+import co.za.Exceptions.StudentWithSameEmailExist;
+import co.za.Exceptions.StudentWithSameStudentNumberExist;
+import co.za.Utils.TransferService;
+import co.za.Utils.Utils;
+import co.za.domain.Login;
 import co.za.domain.Student;
-import co.za.repository.StudentRepo;
+import co.za.repository.LoginRepository;
+import co.za.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class StudentService {
 
-    private final StudentRepo studentRepo;
+    private final StudentRepository studentRepository;
 
     private final SaveInterface saveInterface;
 
-    public StudentService(StudentRepo studentRepo, SaveInterface saveInterface) {
-        this.studentRepo = studentRepo;
+    private final LoginRepository loginRepository;
+
+    public StudentService(StudentRepository studentRepository, SaveInterface saveInterface, LoginRepository loginRepository) {
+        this.studentRepository = studentRepository;
         this.saveInterface = saveInterface;
+        this.loginRepository = loginRepository;
     }
 
     public Student getStudent(String studentNumber){
-        Student student = studentRepo.findAllByStudentNumber(studentNumber);
 
+        Student student = studentRepository.findAllByStudentNumber(studentNumber);
         if (student == null){
             throw new StudentNotFoundException(studentNumber);
         }
-        return studentRepo.findAllByStudentNumber(studentNumber);
+        return studentRepository.findAllByStudentNumber(studentNumber);
     }
 
-    public Student getStudent(int id){
-        return studentRepo.findAllById(id);
+    public Student getStudent(Long id){
+        Student student =  studentRepository.findAllById(id);
+        if (student == null){
+            throw new StudentNotFoundException(id);
+        }
+        return student;
     }
 
     public List<Student> getAllStudent(){
-        return studentRepo.findAll();
+        return studentRepository.findAll();
     }
 
-    public void saveStudent(StudentTo studentTo){
-        saveInterface.saveStudent(studentTo);
+    public void studentRegister(StudentTo studentTo){
+
+        if (studentRepository.existsByIdNumber(studentTo.getIdNumber())){
+            throw new StudentWithSameStudentNumberExist(studentTo.getIdNumber());
+        } else if (studentRepository.existsByEmail(studentTo.getEmail())){
+            throw new StudentWithSameEmailExist(studentTo.getEmail());
+        }
+
+        Student student = TransferService.transferStudent(studentTo);
+        Login login = new Login();
+        int totalStudents = (int) studentRepository.count();
+        String studentNumber = Utils.generateStudent(studentTo.getIdNumber(), totalStudents);
+
+        login.setPassword(studentTo.getPassword());
+        login.setUsername(studentNumber);
+        loginRepository.save(login);
+        student.setStudentNumber(studentNumber);
+        student.setLogin(login);
+        student.setDateCreated(LocalDateTime.now());
+        student.setDateUpdated(LocalDateTime.now());
+        student.setDeleted(false);
+        studentRepository.save(student);
     }
+
+//    private Student createStudent(StudentTo student){}
 
 
 

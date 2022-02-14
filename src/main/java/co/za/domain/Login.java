@@ -1,35 +1,37 @@
 package co.za.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.Length;
+
+import javax.annotation.Generated;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
 public class Login {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column
+    @NotEmpty
     private String username;
+
+    @NotEmpty
+    @Length(min = 4, max = 16)
+    @Column
     private String password;
 
-    @Column(name = "lastlogin")
-    private Date lastLogin;
+    @Column
+    private Date lastlogin;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int setId(int id) {
-       return this.id = id;
-    }
-
-    public Date getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -47,4 +49,14 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Date getLastlogin() {
+        return lastlogin;
+    }
+
+    public void setLastlogin(Date lastlogin) {
+        this.lastlogin = lastlogin;
+    }
 }
+
+

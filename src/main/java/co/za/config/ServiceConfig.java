@@ -1,7 +1,8 @@
 package co.za.config;
 
 import co.za.Controller.StudentController;
-import co.za.repository.StudentRepo;
+import co.za.repository.LoginRepository;
+import co.za.repository.StudentRepository;
 import co.za.service.SaveInterface;
 import co.za.service.SaveImplementation;
 import co.za.service.StudentService;
@@ -22,13 +23,13 @@ public class ServiceConfig {
     }
 
     @Bean
-    public SaveInterface saveInterface(StudentRepo studentRepo){
-        return new SaveImplementation(studentRepo);
+    public SaveInterface saveInterface(StudentRepository studentRepository){
+        return new SaveImplementation(studentRepository);
     }
 
     @Bean
-    public StudentService studentService(StudentRepo studentRepo, SaveInterface saveInterface){
-        return new StudentService(studentRepo, saveInterface);
+    public StudentService studentService(StudentRepository studentRepository, SaveInterface saveInterface, LoginRepository loginRepository){
+        return new StudentService(studentRepository, saveInterface, loginRepository);
     }
 
 }

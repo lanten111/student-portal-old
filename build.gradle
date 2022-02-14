@@ -23,6 +23,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-devtools'
 
     implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.2.Final'
 
 
 

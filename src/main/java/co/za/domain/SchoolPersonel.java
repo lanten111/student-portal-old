@@ -1,25 +1,71 @@
 package co.za.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public class SchoolPersonel {
 
-    @Column(name = "idnumber")
+    @NotEmpty
+    @Length(min = 13, max = 13, message = "length must be 13 digits")
+    @Column(name = "IDNUMBER", unique = true)
     private String idNumber;
 
-    @Column(name = "name")
+    @NotEmpty
+    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "surname")
+    @NotEmpty
+    @Column(name = "SURNAME")
     private String surname;
 
-    @Column(name = "email")
+    @NotEmpty
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
-    @Column(name = "phonenumber")
-    private Long phoneNumber;
+    @NotEmpty
+    @Length(min = 10, max = 10 , message = "length must be 10 digits")
+    @Column(name = "PHONENUMBER")
+    private String phoneNumber;
+
+    @Column(name = "DATE_CREATED")
+    private LocalDateTime dateCreated;
+
+    @NotNull
+    @Column(name = "DELETED", columnDefinition = "boolean default false")
+    private boolean deleted = false;
+
+    @Column(name = "DATE_UPDATED")
+    private LocalDateTime dateUpdated;
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public LocalDateTime getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(LocalDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
 
     public String getIdNumber() {
         return idNumber;
@@ -53,11 +99,11 @@ public class SchoolPersonel {
         this.email = email;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
