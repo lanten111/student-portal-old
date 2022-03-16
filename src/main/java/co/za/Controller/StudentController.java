@@ -1,49 +1,47 @@
 package co.za.Controller;
 
-import co.za.DTO.StudentTo;
-import co.za.domain.Student;
+import co.za.dto.StudentTO;
+import co.za.entity.Student;
 import co.za.service.StudentService;
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("api/v1/student")
 public class StudentController {
 
-    @Autowired
-    StudentService studentService;
+    private final StudentService studentService;
 
-    private Environment environment;
-
-    public StudentController(Environment environment) {
-        this.environment = environment;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     @GetMapping(path = "studentNumber/{studentNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Student getStudentByStudentNumber(@PathVariable String studentNumber){
-        return studentService.getStudent(studentNumber);
+    public ResponseEntity<Student> getStudentByStudentNumber(@PathVariable String studentNumber){
+        return ResponseEntity.ok(studentService.getStudent(studentNumber));
     }
 
     @GetMapping(path = "id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Student getStudentById(@PathVariable(value ="id") long id){
-        return studentService.getStudent(id);
-
+    public ResponseEntity<Student> getStudentById(@PathVariable(value ="id") long id){
+        return ResponseEntity.ok(studentService.getStudent(id));
     }
 
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Student> getAllStudents(){
-        return studentService.getAllStudent();
+    public ResponseEntity<List<Student>> getAllStudents(){
+        return ResponseEntity.ok(studentService.getAllStudent());
     }
 
     @PostMapping(path = "/create-account")
-    public void registerStudent(@RequestBody StudentTo studentTo){
-        studentService.studentRegister(studentTo);
+    public ResponseEntity<String> registerStudent(@RequestBody StudentTO studentTo){
+       return ResponseEntity.ok(studentService.studentRegister(studentTo));
     }
 }
 
 //localhost:8080/student/student/{studentNumber}
+
+
+
+

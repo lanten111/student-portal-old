@@ -1,17 +1,17 @@
 package co.za.service;
 
-import co.za.DTO.StudentTo;
+import co.za.dto.StudentTO;
 import co.za.Exceptions.StudentNotFoundException;
 import co.za.Exceptions.StudentWithSameEmailExist;
 import co.za.Exceptions.StudentWithSameStudentNumberExist;
-import co.za.Utils.TransferService;
 import co.za.Utils.Utils;
-import co.za.domain.Login;
-import co.za.domain.Student;
-import co.za.repository.LoginRepository;
+import co.za.entity.Student;
 import co.za.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,95 +20,59 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    private final SaveInterface saveInterface;
+//    private final PasswordEncoder passwordEncoder;
 
-    private final LoginRepository loginRepository;
-
-    public StudentService(StudentRepository studentRepository, SaveInterface saveInterface, LoginRepository loginRepository) {
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        this.saveInterface = saveInterface;
-        this.loginRepository = loginRepository;
+    }
+
+    public void saveStudent(StudentTO studentTo) {
+        Student student = TransferService.transferStudent(studentTo);
+        studentRepository.save(student);
     }
 
     public Student getStudent(String studentNumber){
 
-        Student student = studentRepository.findAllByStudentNumber(studentNumber);
-        if (student == null){
-            throw new StudentNotFoundException(studentNumber);
-        }
-        return studentRepository.findAllByStudentNumber(studentNumber);
+        return studentRepository.findAllByStudentNumber(studentNumber).orElseThrow(() -> new StudentNotFoundException(studentNumber));
     }
 
     public Student getStudent(Long id){
-        Student student =  studentRepository.findAllById(id);
-        if (student == null){
-            throw new StudentNotFoundException(id);
-        }
-        return student;
+        return studentRepository.findAllById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
     public List<Student> getAllStudent(){
         return studentRepository.findAll();
     }
 
-    public void studentRegister(StudentTo studentTo){
+    @Transactional
+    public String studentRegister(StudentTO studentTo){
 
         if (studentRepository.existsByIdNumber(studentTo.getIdNumber())){
             throw new StudentWithSameStudentNumberExist(studentTo.getIdNumber());
         } else if (studentRepository.existsByEmail(studentTo.getEmail())){
             throw new StudentWithSameEmailExist(studentTo.getEmail());
+        } else {
+            String studentNumber = getStudentNumber(studentTo);
+            return saveStudent(studentTo, studentNumber);
         }
+    }
 
-        Student student = TransferService.transferStudent(studentTo);
-        Login login = new Login();
-        int totalStudents = (int) studentRepository.count();
-        String studentNumber = Utils.generateStudent(studentTo.getIdNumber(), totalStudents);
-
-        login.setPassword(studentTo.getPassword());
-        login.setUsername(studentNumber);
-        loginRepository.save(login);
+    private String saveStudent(StudentTO studentTO, String studentNumber){
+        Student student = TransferService.transferStudent(studentTO);
         student.setStudentNumber(studentNumber);
-        student.setLogin(login);
+//        student.setPassword(passwordEncoder.encode(studentTO.getPassword()));
         student.setDateCreated(LocalDateTime.now());
+        student.setPassword(studentTO.getPassword());
         student.setDateUpdated(LocalDateTime.now());
         student.setDeleted(false);
         studentRepository.save(student);
+        return studentNumber;
     }
 
-//    private Student createStudent(StudentTo student){}
+    private String getStudentNumber(StudentTO studentTO){
+        int totalStudents = (int) studentRepository.count();
+         return Utils.generateStudent(studentTO.getIdNumber(), totalStudents);
+    }
 
-
-
-
-
-
-
-
-
-//    public static void main(String [] args){
-//
-//        //create a list of numbers char from the int
-//        int num = 234324;
-//        List<Integer> numList = new ArrayList<>();
-//        String numAsStringList = String.parse(num).toCharArray;
-//        for (int i = 0; i < numAsStringList.size(); i++ ){
-//            numList.add(numAsStringList.get(i))
-//        }
-//        Array.sort(numList);
-//
-//
-////     split int int char
-////     String numAsString = String.valueOf(num)';
-//        //split string into an array
-//        numList = numList.split();
-////     order the list of number asceding
-//        numList = numList.sort();
-////     build string with sorted number
-//        String newNum = "";
-//        for (int i = 0; i < numList.size; i++){
-//            newNum = newNum + numList[i];
-//        }
-////     covert newNum to int and return
-//        return Integer.arse(newNum);
-//    }
 }

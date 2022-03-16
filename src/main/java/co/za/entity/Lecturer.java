@@ -1,10 +1,10 @@
-package co.za.domain;
+package co.za.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Lecturer extends SchoolPersonel {
+public class Lecturer extends SchoolPersonnel {
 
     @Id
     private Long id;

@@ -1,4 +1,4 @@
-package co.za.domain;
+package co.za.entity;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class SchoolPersonel {
+public class SchoolPersonnel {
 
     @NotEmpty
     @Length(min = 13, max = 13, message = "length must be 13 digits")
@@ -42,6 +42,17 @@ public class SchoolPersonel {
 
     @Column(name = "DATE_UPDATED")
     private LocalDateTime dateUpdated;
+
+    @Column(name = "PASSWORD")
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;

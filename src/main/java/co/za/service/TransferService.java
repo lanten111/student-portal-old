@@ -1,11 +1,11 @@
-package co.za.Utils;
+package co.za.service;
 
-import co.za.DTO.StudentTo;
-import co.za.domain.Student;
+import co.za.dto.StudentTO;
+import co.za.entity.Student;
 
 public class TransferService {
 
-    public static Student transferStudent(StudentTo studentTo){
+    public static Student transferStudent(StudentTO studentTo){
 
         Student student = new Student();
         student.setEmail(studentTo.getEmail());

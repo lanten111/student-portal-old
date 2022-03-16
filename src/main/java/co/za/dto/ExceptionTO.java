@@ -1,6 +1,6 @@
-package co.za.DTO;
+package co.za.dto;
 
-public class ExceptionTo {
+public class ExceptionTO {
 
     private String message;
     private String timeStamp;

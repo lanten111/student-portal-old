@@ -1,6 +1,5 @@
-package co.za.domain;
+package co.za.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,7 +9,7 @@ public class ModuleMaterials {
     @Id
     private Long id;
 //    private String moduleguide;
-    private String bookname;
+    private String bookName;
 
 
     public Long getId() {
@@ -22,10 +21,10 @@ public class ModuleMaterials {
     }
 
     public String getBookname() {
-        return bookname;
+        return bookName;
     }
 
     public void setBookname(String bookname) {
-        this.bookname = bookname;
+        this.bookName = bookname;
     }
 }

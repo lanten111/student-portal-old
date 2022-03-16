@@ -1,19 +1,17 @@
-package co.za.domain;
+package co.za.entity;
 
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigInteger;
-import java.util.List;
 
 
 @Entity
-public class Student extends SchoolPersonel {
+public class Student extends SchoolPersonnel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotNull
@@ -25,10 +23,6 @@ public class Student extends SchoolPersonel {
     @JoinColumn(name = "COURSE")
     private Course course;
 
-    @OneToOne
-    @NotNull
-    @JoinColumn(name = "LOGIN")
-    private Login login;
 
     public long getId() {
         return id;
@@ -54,11 +48,4 @@ public class Student extends SchoolPersonel {
         this.course = course;
     }
 
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
-    }
 }

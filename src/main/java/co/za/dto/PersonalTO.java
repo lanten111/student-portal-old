@@ -1,4 +1,4 @@
-package co.za.DTO;
+package co.za.dto;
 
 public class PersonalTO {
 

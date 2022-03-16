@@ -1,4 +1,4 @@
-package co.za.domain;
+package co.za.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
