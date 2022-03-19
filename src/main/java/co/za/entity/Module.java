@@ -1,111 +1,111 @@
 package co.za.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Module {
-    private int id;
-    private String moduleId;
-    private String moduleName;
-    private String moduleCode;
-    private Integer lecturer;
-    private LocalDateTime moduleTime;
-    private Integer course;
-    private Integer moduleMaterials;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @NotEmpty
+    @Column(name = "MODULE_ID")
+    private String moduleId;
+
+    @NotEmpty
+    @Column(name = "MODULE_NAME")
+    private String moduleName;
+
+    @NotEmpty
+    @Column(name = "MODULE_CODE", length = 10)
+    private String moduleCode;
+
+    @NotEmpty
+    @ManyToOne
+    @JoinColumn(name = "LECTURE")
+    private Lecturer lecturer;
+
+    @NotEmpty
+    @Column(name = "MODULE_TIME", nullable = true)
+    private LocalDateTime moduleTime;
+
+    @NotEmpty
+    @JoinColumn(name = "COURSE_ID")
+    private Long courseId;
+
+    @NotEmpty
+    @OneToMany
+    @JoinColumn(name = "MODULE_MATERIALS_ID", nullable = true)
+    private List<ModuleMaterials> moduleMaterialId;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "moduleid", nullable = true, length = 100)
     public String getModuleId() {
         return moduleId;
     }
 
-    public void setModuleId(String moduleid) {
-        this.moduleId = moduleid;
+    public void setModuleId(String moduleId) {
+        this.moduleId = moduleId;
     }
 
-    @Basic
-    @Column(name = "modulename", nullable = true, length = 100)
     public String getModuleName() {
         return moduleName;
     }
 
-    public void setModuleName(String modulename) {
-        this.moduleName = modulename;
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
-    @Basic
-    @Column(name = "modulecode", nullable = true, length = 10)
     public String getModuleCode() {
         return moduleCode;
     }
 
-    public void setModuleCode(String modulecode) {
-        this.moduleCode = modulecode;
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
-    @Basic
-    @Column(name = "lecturer", nullable = true)
-    public Integer getLecturer() {
+    public Lecturer getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Integer lecturer) {
+    public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
     }
 
-    @Basic
-    @Column(name = "moduletime", nullable = true)
     public LocalDateTime getModuleTime() {
         return moduleTime;
     }
 
-    public void setModuleTime(LocalDateTime moduletime) {
-        this.moduleTime = moduletime;
+    public void setModuleTime(LocalDateTime moduleTime) {
+        this.moduleTime = moduleTime;
     }
 
-    @Basic
-    @Column(name = "course", nullable = true)
-    public Integer getCourse() {
-        return course;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setCourse(Integer course) {
-        this.course = course;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
-    @Basic
-    @Column(name = "modulematerials", nullable = true)
-    public Integer getModuleMaterials() {
-        return moduleMaterials;
+    public List<ModuleMaterials> getModuleMaterialId() {
+        return moduleMaterialId;
     }
 
-    public void setModuleMaterials(Integer modulematerials) {
-        this.moduleMaterials = modulematerials;
+    public void setModuleMaterialId(List<ModuleMaterials> moduleMaterialId) {
+        this.moduleMaterialId = moduleMaterialId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Module module = (Module) o;
-        return id == module.id && Objects.equals(moduleId, module.moduleId) && Objects.equals(moduleName, module.moduleName) && Objects.equals(moduleCode, module.moduleCode) && Objects.equals(lecturer, module.lecturer) && Objects.equals(moduleTime, module.moduleTime) && Objects.equals(course, module.course) && Objects.equals(moduleMaterials, module.moduleMaterials);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, moduleId, moduleName, moduleCode, lecturer, moduleTime, course, moduleMaterials);
-    }
 }

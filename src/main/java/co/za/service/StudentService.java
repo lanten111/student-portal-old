@@ -5,6 +5,7 @@ import co.za.Exceptions.StudentNotFoundException;
 import co.za.Exceptions.StudentWithSameEmailExist;
 import co.za.Exceptions.StudentWithSameStudentNumberExist;
 import co.za.Utils.Utils;
+import co.za.dto.SuccessTO;
 import co.za.entity.Student;
 import co.za.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +42,12 @@ public class StudentService {
         return studentRepository.findAllById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
-    public List<Student> getAllStudent(){
-        return studentRepository.findAll();
+    public SuccessTO getAllStudent(){
+        return Utils.generateResponse(studentRepository.findAll());
     }
 
     @Transactional
-    public String studentRegister(StudentTO studentTo){
+    public void studentRegister(StudentTO studentTo){
 
         if (studentRepository.existsByIdNumber(studentTo.getIdNumber())){
             throw new StudentWithSameStudentNumberExist(studentTo.getIdNumber());
@@ -54,7 +55,7 @@ public class StudentService {
             throw new StudentWithSameEmailExist(studentTo.getEmail());
         } else {
             String studentNumber = getStudentNumber(studentTo);
-            return saveStudent(studentTo, studentNumber);
+            saveStudent(studentTo, studentNumber);
         }
     }
 

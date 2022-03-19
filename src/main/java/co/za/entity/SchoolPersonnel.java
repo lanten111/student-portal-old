@@ -1,9 +1,9 @@
 package co.za.entity;
 
+import co.za.enums.GENDER;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class SchoolPersonnel {
 
     @NotEmpty
     @Length(min = 13, max = 13, message = "length must be 13 digits")
-    @Column(name = "IDNUMBER", unique = true)
+    @Column(name = "ID_NUMBER", unique = true)
     private String idNumber;
 
     @NotEmpty
@@ -30,7 +30,7 @@ public class SchoolPersonnel {
 
     @NotEmpty
     @Length(min = 10, max = 10 , message = "length must be 10 digits")
-    @Column(name = "PHONENUMBER")
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
     @Column(name = "DATE_CREATED")
@@ -40,11 +40,47 @@ public class SchoolPersonnel {
     @Column(name = "DELETED", columnDefinition = "boolean default false")
     private boolean deleted = false;
 
+    @NotNull
     @Column(name = "DATE_UPDATED")
     private LocalDateTime dateUpdated;
 
     @Column(name = "PASSWORD")
     private String password;
+
+    @Column(name = "GENDER")
+    private GENDER gender;
+
+//    @NotNull
+    @Column(name = "BIRTHDAY")
+    private LocalDateTime birthday;
+
+    @JoinColumn(name = "ADDRESS")
+    @OneToOne(fetch = FetchType.EAGER)
+    private Address address;
+
+    public GENDER getGender() {
+        return gender;
+    }
+
+    public void setGender(GENDER gender) {
+        this.gender = gender;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public String getPassword() {
         return password;

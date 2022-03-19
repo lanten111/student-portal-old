@@ -1,16 +1,20 @@
 package co.za.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.print.attribute.standard.MediaSize;
 
 @Entity
 public class ModuleMaterials {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    private String moduleguide;
-    private String bookName;
 
+    @Column(name = "MODULE_CODE")
+    private String moduleGuideUrl;
+
+    @Column(name = "BOOK_NAME")
+    private String bookName;
 
     public Long getId() {
         return id;
@@ -20,11 +24,19 @@ public class ModuleMaterials {
         this.id = id;
     }
 
-    public String getBookname() {
+    public String getModuleGuideUrl() {
+        return moduleGuideUrl;
+    }
+
+    public void setModuleGuideUrl(String moduleGuideUrl) {
+        this.moduleGuideUrl = moduleGuideUrl;
+    }
+
+    public String getBookName() {
         return bookName;
     }
 
-    public void setBookname(String bookname) {
-        this.bookName = bookname;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 }

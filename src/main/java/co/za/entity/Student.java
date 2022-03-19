@@ -4,6 +4,7 @@ package co.za.entity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
@@ -14,9 +15,9 @@ public class Student extends SchoolPersonnel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotNull
+    @NotEmpty
     @Length(min = 10, max = 10 , message = "length must be 10 digits")
-    @Column(name = "STUDENTNUMBER")
+    @Column(name = "STUDENT_NUMBER")
     private String studentNumber;
 
     @ManyToOne

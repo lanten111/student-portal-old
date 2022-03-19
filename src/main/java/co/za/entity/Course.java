@@ -1,29 +1,34 @@
 package co.za.entity;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Course {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id", nullable = false)
-    private int id;
-    @Basic
-    @Column(name = "course_name", nullable = false, length = 100)
-    private String courseName;
-    @Basic
-    @Column(name = "course_code", nullable = false, length = 10)
-    private String courseCode;
-    @Basic
-    @Column(name = "module", nullable = true)
-    private Integer module;
 
-    public int getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "COURSE_NAME", nullable = false, length = 100)
+    private String courseName;
+
+    @Column(name = "COURSE_CODE", nullable = false, length = 10)
+    private String courseCode;
+
+    @ManyToMany
+    @JoinColumn(name = "MODULE", nullable = true)
+    private List<Module> module;
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,24 +48,11 @@ public class Course {
         this.courseCode = courseCode;
     }
 
-    public Integer getModule() {
+    public List<Module> getModule() {
         return module;
     }
 
-    public void setModule(Integer module) {
+    public void setModule(List<Module> module) {
         this.module = module;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return id == course.id && Objects.equals(courseName, course.courseName) && Objects.equals(courseCode, course.courseCode) && Objects.equals(module, course.module);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, courseName, courseCode, module);
     }
 }
