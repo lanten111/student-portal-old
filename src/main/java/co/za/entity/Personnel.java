@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class SchoolPersonnel {
+public class Personnel {
 
     @NotEmpty
     @Length(min = 13, max = 13, message = "length must be 13 digits")
@@ -44,9 +44,11 @@ public class SchoolPersonnel {
     @Column(name = "DATE_UPDATED")
     private LocalDateTime dateUpdated;
 
+    @NotEmpty
     @Column(name = "PASSWORD")
     private String password;
 
+    @NotNull
     @Column(name = "GENDER")
     private GENDER gender;
 
@@ -54,9 +56,18 @@ public class SchoolPersonnel {
     @Column(name = "BIRTHDAY")
     private LocalDateTime birthday;
 
-    @JoinColumn(name = "ADDRESS")
-    @OneToOne(fetch = FetchType.EAGER)
+    @NotNull
+    @Embedded
+    @Column(name = "ADDRESS")
     private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public GENDER getGender() {
         return gender;
@@ -72,14 +83,6 @@ public class SchoolPersonnel {
 
     public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public String getPassword() {

@@ -1,17 +1,14 @@
 package co.za.entity;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     @Column(name = "COURSE_NAME", nullable = false, length = 100)
     private String courseName;

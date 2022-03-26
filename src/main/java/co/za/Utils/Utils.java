@@ -1,7 +1,8 @@
 package co.za.Utils;
 
-import co.za.dto.SuccessTO;
+import co.za.entity.Course;
 import co.za.entity.Student;
+import co.za.response.CourseResponse;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
@@ -19,16 +20,14 @@ public class Utils {
         return stringBuilder.toString();
     }
 
-    public static SuccessTO generateResponse(List<Student> message){
-        SuccessTO successTO = new SuccessTO();
-        successTO.setCode(HttpStatus.OK.value());
-        successTO.setStatus(HttpStatus.OK.getReasonPhrase());
-        successTO.setData(message);
-        for (Student s: message){
-            s.getGender().toString();
-        }
-        return successTO;
+    public static CourseResponse generateResponse(List<Course> message){
+        CourseResponse courseResponse = new CourseResponse();
+        courseResponse.setCode(HttpStatus.OK.value());
+        courseResponse.setStatus(HttpStatus.OK.getReasonPhrase());
+        courseResponse.setDatas(message);
+        return courseResponse;
     }
+
 
 //    public static SuccessTO generateResponse(String message){
 //        SuccessTO successTO = new SuccessTO();

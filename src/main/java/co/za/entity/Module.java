@@ -3,6 +3,7 @@ package co.za.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,23 +26,21 @@ public class Module {
     @Column(name = "MODULE_CODE", length = 10)
     private String moduleCode;
 
-    @NotEmpty
     @ManyToOne
-    @JoinColumn(name = "LECTURE")
+    @JoinColumn(name = "LECTURER")
     private Lecturer lecturer;
 
-    @NotEmpty
     @Column(name = "MODULE_TIME", nullable = true)
     private LocalDateTime moduleTime;
 
     @NotEmpty
-    @JoinColumn(name = "COURSE_ID")
-    private Long courseId;
+    @Column(name = "MODULE_GUIDE_URL")
+    private String moduleGuideUrl;
 
-    @NotEmpty
     @OneToMany
-    @JoinColumn(name = "MODULE_MATERIALS_ID", nullable = true)
-    private List<ModuleMaterials> moduleMaterialId;
+    @JoinColumn(name = "BOOK")
+    private List<Book> books = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -91,21 +90,19 @@ public class Module {
         this.moduleTime = moduleTime;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public String getModuleGuideUrl() {
+        return moduleGuideUrl;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setModuleGuideUrl(String moduleGuideUrl) {
+        this.moduleGuideUrl = moduleGuideUrl;
     }
 
-    public List<ModuleMaterials> getModuleMaterialId() {
-        return moduleMaterialId;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setModuleMaterialId(List<ModuleMaterials> moduleMaterialId) {
-        this.moduleMaterialId = moduleMaterialId;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
-
-
 }

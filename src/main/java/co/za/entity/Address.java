@@ -2,12 +2,8 @@ package co.za.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Embeddable
 public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     @Column(name = "STREET_NAME")
     private String streetName;
@@ -19,18 +15,10 @@ public class Address {
     private String city;
 
     @Column(name = "ZIP_CODE")
-    private String zipcode;
+    private String zipCode;
 
     @Column(name = "COUNTRY")
     private String country;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getStreetName() {
         return streetName;
@@ -56,12 +44,12 @@ public class Address {
         this.city = city;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getCountry() {

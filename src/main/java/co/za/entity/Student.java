@@ -5,11 +5,11 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Entity
-public class Student extends SchoolPersonnel {
+public class Student extends Personnel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,12 +20,11 @@ public class Student extends SchoolPersonnel {
     @Column(name = "STUDENT_NUMBER")
     private String studentNumber;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "COURSE")
-    private Course course;
+    private List<Course> course;
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -41,12 +40,11 @@ public class Student extends SchoolPersonnel {
         this.studentNumber = studentNumber;
     }
 
-    public Course getCourse() {
+    public List<Course> getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
+    public void setCourse(List<Course> course) {
         this.course = course;
     }
-
 }

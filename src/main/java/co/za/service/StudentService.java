@@ -1,11 +1,11 @@
 package co.za.service;
 
-import co.za.dto.StudentTO;
 import co.za.Exceptions.StudentNotFoundException;
 import co.za.Exceptions.StudentWithSameEmailExist;
 import co.za.Exceptions.StudentWithSameStudentNumberExist;
 import co.za.Utils.Utils;
-import co.za.dto.SuccessTO;
+import co.za.dto.StudentDto;
+import co.za.entity.Course;
 import co.za.entity.Student;
 import co.za.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,15 +22,18 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
+    private final CourseService courseService;
+
 //    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, CourseService courseService) {
         this.studentRepository = studentRepository;
+        this.courseService = courseService;
     }
 
-    public void saveStudent(StudentTO studentTo) {
-        Student student = TransferService.transferStudent(studentTo);
+    public void saveStudent(StudentDto studentDto) {
+        Student student = TransferService.transferStudent(studentDto);
         studentRepository.save(student);
     }
 
@@ -42,38 +46,40 @@ public class StudentService {
         return studentRepository.findAllById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
-    public SuccessTO getAllStudent(){
-        return Utils.generateResponse(studentRepository.findAll());
+    public List<Student> getAllStudent(){
+        return studentRepository.findAll();
     }
 
     @Transactional
-    public void studentRegister(StudentTO studentTo){
+    public void studentRegister(StudentDto studentDto){
 
-        if (studentRepository.existsByIdNumber(studentTo.getIdNumber())){
-            throw new StudentWithSameStudentNumberExist(studentTo.getIdNumber());
-        } else if (studentRepository.existsByEmail(studentTo.getEmail())){
-            throw new StudentWithSameEmailExist(studentTo.getEmail());
+        if (studentRepository.existsByIdNumber(studentDto.getIdNumber())){
+            throw new StudentWithSameStudentNumberExist(studentDto.getIdNumber());
+        } else if (studentRepository.existsByEmail(studentDto.getEmail())){
+            throw new StudentWithSameEmailExist(studentDto.getEmail());
         } else {
-            String studentNumber = getStudentNumber(studentTo);
-            saveStudent(studentTo, studentNumber);
+            String studentNumber = getStudentNumber(studentDto);
+            saveStudent(studentDto, studentNumber);
         }
     }
 
-    private String saveStudent(StudentTO studentTO, String studentNumber){
-        Student student = TransferService.transferStudent(studentTO);
+    private void  saveStudent(StudentDto studentDto, String studentNumber){
+        List<Course> courseList = new ArrayList<>();
+        Student student = TransferService.transferStudent(studentDto);
         student.setStudentNumber(studentNumber);
 //        student.setPassword(passwordEncoder.encode(studentTO.getPassword()));
         student.setDateCreated(LocalDateTime.now());
-        student.setPassword(studentTO.getPassword());
+        student.setPassword(studentDto.getPassword());
         student.setDateUpdated(LocalDateTime.now());
-        student.setDeleted(false);
+        courseList.add(courseService.getCourse(studentDto.getCourseId()));
+        student.setCourse(courseList);
         studentRepository.save(student);
-        return studentNumber;
     }
 
-    private String getStudentNumber(StudentTO studentTO){
+    private String getStudentNumber(StudentDto studentDto){
         int totalStudents = (int) studentRepository.count();
-         return Utils.generateStudent(studentTO.getIdNumber(), totalStudents);
+         return Utils.generateStudent(studentDto.getIdNumber(), totalStudents);
     }
+
 
 }

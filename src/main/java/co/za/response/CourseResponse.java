@@ -1,16 +1,18 @@
-package co.za.dto;
+package co.za.response;
 
+import co.za.entity.Course;
+import co.za.entity.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ErrorTO {
+public class CourseResponse {
 
     private String status;
     private int code;
-    private List<ExceptionTO> errors;
-    private ExceptionTO error;
+    private List<Course> datas;
 
     public String getStatus() {
         return status;
@@ -28,19 +30,11 @@ public class ErrorTO {
         this.code = code;
     }
 
-    public List<ExceptionTO> getErrors() {
-        return errors;
+    public List<Course> getDatas() {
+        return datas;
     }
 
-    public void setErrors(List<ExceptionTO> errors) {
-        this.errors = errors;
-    }
-
-    public ExceptionTO getError() {
-        return error;
-    }
-
-    public void setError(ExceptionTO error) {
-        this.error = error;
+    public void setDatas(List<Course> datas) {
+        this.datas = datas;
     }
 }

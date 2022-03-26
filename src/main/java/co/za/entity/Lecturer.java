@@ -3,10 +3,9 @@ package co.za.entity;
 import co.za.enums.DEPARTMENT;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class Lecturer extends SchoolPersonnel {
+public class Lecturer extends Personnel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +13,6 @@ public class Lecturer extends SchoolPersonnel {
 
     @Column(name = "DEPARTMENT")
     private DEPARTMENT department;
-
-    @OneToMany
-    @JoinColumn(name = "MODULE")
-    private List<Lecturer> lecture;
 
     public Long getId() {
         return id;
@@ -35,11 +30,4 @@ public class Lecturer extends SchoolPersonnel {
         this.department = department;
     }
 
-    public List<Lecturer> getLecture() {
-        return lecture;
-    }
-
-    public void setLecture(List<Lecturer> lecture) {
-        this.lecture = lecture;
-    }
 }
