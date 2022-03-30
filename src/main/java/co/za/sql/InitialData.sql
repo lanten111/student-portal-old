@@ -15,7 +15,7 @@ insert into Lecturer(lecturerName, lecturerSurname)
 VALUES ('mfowabo', 'ramaphosa');
 
 insert into ModuleMaterials(moduleGuide, bookName)
-VALUES (null, 'analytical book');
+VALUES (null, 'analytical books');
 
 -- create table Lecturer
 -- (

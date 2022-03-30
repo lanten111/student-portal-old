@@ -1,7 +1,6 @@
 package co.za.Utils;
 
-import co.za.entity.Course;
-import co.za.entity.Student;
+import co.za.entity.StudentCourse;
 import co.za.response.CourseResponse;
 import org.springframework.http.HttpStatus;
 
@@ -20,7 +19,7 @@ public class Utils {
         return stringBuilder.toString();
     }
 
-    public static CourseResponse generateResponse(List<Course> message){
+    public static CourseResponse generateResponse(List<StudentCourse> message){
         CourseResponse courseResponse = new CourseResponse();
         courseResponse.setCode(HttpStatus.OK.value());
         courseResponse.setStatus(HttpStatus.OK.getReasonPhrase());

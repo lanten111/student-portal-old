@@ -3,10 +3,10 @@ package co.za.service;
 import co.za.Exceptions.StudentNotFoundException;
 import co.za.Exceptions.StudentWithSameEmailExist;
 import co.za.Exceptions.StudentWithSameStudentNumberExist;
+import co.za.dto.AddressDto;
 import co.za.dto.StudentDto;
 import co.za.entity.Student;
-import co.za.repository.CourseRepository;
-import co.za.repository.StudentRepository;
+import co.za.repository.*;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
@@ -20,6 +20,9 @@ class StudentServiceTest {
 
     StudentRepository studentRepository =  Mockito.mock(StudentRepository.class);
     CourseRepository courseRepository = Mockito.mock(CourseRepository.class);
+    StudentCourseRepository studentCourseRepository = Mockito.mock(StudentCourseRepository.class);
+    StudentBookRepository studentBookRepository = Mockito.mock(StudentBookRepository.class);
+    StudentModuleRepository studentModuleRepository = Mockito.mock(StudentModuleRepository.class);
 
     StudentService studentService;
 
@@ -45,11 +48,19 @@ class StudentServiceTest {
         studentTO.setSurname("surname");
         studentTO.setPassword("2312323");
         studentTO.setPhoneNumber("0593454324");
+
+        AddressDto addressDto = new AddressDto();
+        addressDto.setCity("sdasds");
+        addressDto.setZipCode("sads");
+        addressDto.setCountry("sdasad");
+        addressDto.setStreetName("dfsadsd");
+
+        studentTO.setAddress(addressDto);
     }
 
     @BeforeEach
     public void setUp(){
-        studentService = new StudentService(studentRepository, courseService);
+        studentService = new StudentService(studentRepository, studentCourseRepository, studentModuleRepository, studentBookRepository, courseService);
     }
 
     @Test

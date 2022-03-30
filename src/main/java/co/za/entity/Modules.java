@@ -5,10 +5,9 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-public class Module {
+public class Modules {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +38,7 @@ public class Module {
 
     @OneToMany
     @JoinColumn(name = "BOOK")
-    private List<Book> books = new ArrayList<>();
+    private List<Books> books = new ArrayList<>();
 
 
     public Long getId() {
@@ -98,11 +97,11 @@ public class Module {
         this.moduleGuideUrl = moduleGuideUrl;
     }
 
-    public List<Book> getBooks() {
+    public List<Books> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(List<Books> books) {
         this.books = books;
     }
 }

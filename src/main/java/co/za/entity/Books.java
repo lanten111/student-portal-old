@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Book {
+public class Books {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

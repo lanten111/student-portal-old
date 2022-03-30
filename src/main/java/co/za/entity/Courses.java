@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Course {
+public class Courses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,16 +16,15 @@ public class Course {
     @Column(name = "COURSE_CODE", nullable = false, length = 10)
     private String courseCode;
 
-    @ManyToMany
+    @OneToMany
     @JoinColumn(name = "MODULE", nullable = true)
-    private List<Module> module;
+    private List<Modules> module;
 
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -45,11 +44,12 @@ public class Course {
         this.courseCode = courseCode;
     }
 
-    public List<Module> getModule() {
+    public List<Modules> getModule() {
         return module;
     }
 
-    public void setModule(List<Module> module) {
+    public void setModule(List<Modules> module) {
         this.module = module;
     }
+
 }

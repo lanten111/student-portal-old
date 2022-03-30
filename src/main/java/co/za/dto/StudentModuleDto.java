@@ -3,36 +3,36 @@ package co.za.dto;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class ModuleDto implements Serializable {
+public class StudentModuleDto implements Serializable {
     private Long id;
     @NotEmpty
     private String moduleId;
     @NotEmpty
     private String moduleName;
     @NotEmpty
+    private int moduleMarks;
+    @NotEmpty
+    private boolean completed;
+    @NotEmpty
     private String moduleCode;
-    private LecturerDto lecturer;
     private LocalDateTime moduleTime;
     @NotEmpty
     private String moduleGuideUrl;
-    private List<BookDto> books = new ArrayList<>();
 
-    public ModuleDto() {
+    public StudentModuleDto() {
     }
 
-    public ModuleDto(Long id, String moduleId, String moduleName, String moduleCode, LecturerDto lecturer, LocalDateTime moduleTime, String moduleGuideUrl, List<BookDto> books) {
+    public StudentModuleDto(Long id, String moduleId, String moduleName, int moduleMarks, boolean completed, String moduleCode, LocalDateTime moduleTime, String moduleGuideUrl) {
         this.id = id;
         this.moduleId = moduleId;
         this.moduleName = moduleName;
+        this.moduleMarks = moduleMarks;
+        this.completed = completed;
         this.moduleCode = moduleCode;
-        this.lecturer = lecturer;
         this.moduleTime = moduleTime;
         this.moduleGuideUrl = moduleGuideUrl;
-        this.books = books;
     }
 
     public Long getId() {
@@ -59,20 +59,28 @@ public class ModuleDto implements Serializable {
         this.moduleName = moduleName;
     }
 
+    public int getModuleMarks() {
+        return moduleMarks;
+    }
+
+    public void setModuleMarks(int moduleMarks) {
+        this.moduleMarks = moduleMarks;
+    }
+
+    public boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public String getModuleCode() {
         return moduleCode;
     }
 
     public void setModuleCode(String moduleCode) {
         this.moduleCode = moduleCode;
-    }
-
-    public LecturerDto getLecturer() {
-        return lecturer;
-    }
-
-    public void setLecturer(LecturerDto lecturer) {
-        this.lecturer = lecturer;
     }
 
     public LocalDateTime getModuleTime() {
@@ -91,32 +99,24 @@ public class ModuleDto implements Serializable {
         this.moduleGuideUrl = moduleGuideUrl;
     }
 
-    public List<BookDto> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<BookDto> books) {
-        this.books = books;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ModuleDto entity = (ModuleDto) o;
+        StudentModuleDto entity = (StudentModuleDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.moduleId, entity.moduleId) &&
                 Objects.equals(this.moduleName, entity.moduleName) &&
+                Objects.equals(this.moduleMarks, entity.moduleMarks) &&
+                Objects.equals(this.completed, entity.completed) &&
                 Objects.equals(this.moduleCode, entity.moduleCode) &&
-                Objects.equals(this.lecturer, entity.lecturer) &&
                 Objects.equals(this.moduleTime, entity.moduleTime) &&
-                Objects.equals(this.moduleGuideUrl, entity.moduleGuideUrl) &&
-                Objects.equals(this.books, entity.books);
+                Objects.equals(this.moduleGuideUrl, entity.moduleGuideUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, moduleId, moduleName, moduleCode, lecturer, moduleTime, moduleGuideUrl, books);
+        return Objects.hash(id, moduleId, moduleName, moduleMarks, completed, moduleCode, moduleTime, moduleGuideUrl);
     }
 
     @Override
@@ -125,10 +125,10 @@ public class ModuleDto implements Serializable {
                 "id = " + id + ", " +
                 "moduleId = " + moduleId + ", " +
                 "moduleName = " + moduleName + ", " +
+                "moduleMarks = " + moduleMarks + ", " +
+                "completed = " + completed + ", " +
                 "moduleCode = " + moduleCode + ", " +
-                "lecturer = " + lecturer + ", " +
                 "moduleTime = " + moduleTime + ", " +
-                "moduleGuideUrl = " + moduleGuideUrl + ", " +
-                "books = " + books + ")";
+                "moduleGuideUrl = " + moduleGuideUrl + ")";
     }
 }

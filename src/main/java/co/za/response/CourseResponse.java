@@ -1,8 +1,6 @@
 package co.za.response;
 
-import co.za.entity.Course;
-import co.za.entity.Student;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import co.za.entity.StudentCourse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
@@ -12,7 +10,7 @@ public class CourseResponse {
 
     private String status;
     private int code;
-    private List<Course> datas;
+    private List<StudentCourse> datas;
 
     public String getStatus() {
         return status;
@@ -30,11 +28,11 @@ public class CourseResponse {
         this.code = code;
     }
 
-    public List<Course> getDatas() {
+    public List<StudentCourse> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<Course> datas) {
+    public void setDatas(List<StudentCourse> datas) {
         this.datas = datas;
     }
 }

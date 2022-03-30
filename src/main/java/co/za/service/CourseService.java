@@ -1,12 +1,15 @@
 package co.za.service;
 
 import co.za.Exceptions.CourseNotFoundException;
-import co.za.entity.Course;
+import co.za.dto.CoursesDto;
+import co.za.entity.Courses;
 import co.za.repository.CourseRepository;
-import co.za.response.CourseResponse;
 import org.springframework.stereotype.Service;
 
-import static co.za.Utils.Utils.generateResponse;
+import java.util.List;
+
+import static co.za.service.TransferService.transferCourse;
+import static co.za.service.TransferService.transferCourses;
 
 @Service
 public class CourseService {
@@ -17,7 +20,19 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public Course getCourse(long id){
+    public Courses getCourse(long id){
         return courseRepository.findById(id).orElseThrow(() -> new CourseNotFoundException("selected course not found"));
+    }
+
+    public CoursesDto getCourse(String id){
+        return transferCourse(getCourse(Long.parseLong(id)));
+    }
+
+    public List<CoursesDto> getCourseList(){
+        return transferCourses(courseRepository.findAll());
+    }
+
+    public void deleteCourse(String id){
+        courseRepository.deleteById(Long.parseLong(id));
     }
 }

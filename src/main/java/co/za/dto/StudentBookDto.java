@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class BookDto implements Serializable {
+public class StudentBookDto implements Serializable {
     private Long id;
     private String bookName;
     private String isbn;
@@ -12,10 +12,10 @@ public class BookDto implements Serializable {
     private LocalDate released;
     private String edition;
 
-    public BookDto() {
+    public StudentBookDto() {
     }
 
-    public BookDto(Long id, String bookName, String isbn, String author, LocalDate released, String edition) {
+    public StudentBookDto(Long id, String bookName, String isbn, String author, LocalDate released, String edition) {
         this.id = id;
         this.bookName = bookName;
         this.isbn = isbn;
@@ -76,7 +76,7 @@ public class BookDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookDto entity = (BookDto) o;
+        StudentBookDto entity = (StudentBookDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.bookName, entity.bookName) &&
                 Objects.equals(this.isbn, entity.isbn) &&

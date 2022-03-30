@@ -20,9 +20,9 @@ public class Student extends Personnel {
     @Column(name = "STUDENT_NUMBER")
     private String studentNumber;
 
-    @ManyToMany
+    @OneToMany
     @JoinColumn(name = "COURSE")
-    private List<Course> course;
+    private List<StudentCourse> course;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class Student extends Personnel {
         this.studentNumber = studentNumber;
     }
 
-    public List<Course> getCourse() {
+    public List<StudentCourse> getCourse() {
         return course;
     }
 
-    public void setCourse(List<Course> course) {
+    public void setCourse(List<StudentCourse> course) {
         this.course = course;
     }
 }

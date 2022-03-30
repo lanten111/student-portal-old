@@ -30,17 +30,17 @@ public class LecturerDto implements Serializable {
     private LocalDateTime dateUpdated;
     @NotEmpty
     private String password;
-    @NotEmpty
-    private GENDER gender;
     @NotNull
+    private GENDER gender;
     private LocalDateTime birthday;
-    private Long id;
+    @NotNull
+    private AddressDto address;
     private DEPARTMENT department;
 
     public LecturerDto() {
     }
 
-    public LecturerDto(String idNumber, String name, String surname, String email, String phoneNumber, LocalDateTime dateCreated, boolean deleted, LocalDateTime dateUpdated, String password, GENDER gender, LocalDateTime birthday, Long id, DEPARTMENT department) {
+    public LecturerDto(String idNumber, String name, String surname, String email, String phoneNumber, LocalDateTime dateCreated, boolean deleted, LocalDateTime dateUpdated, String password, GENDER gender, LocalDateTime birthday, AddressDto address, DEPARTMENT department) {
         this.idNumber = idNumber;
         this.name = name;
         this.surname = surname;
@@ -52,7 +52,7 @@ public class LecturerDto implements Serializable {
         this.password = password;
         this.gender = gender;
         this.birthday = birthday;
-        this.id = id;
+        this.address = address;
         this.department = department;
     }
 
@@ -144,12 +144,12 @@ public class LecturerDto implements Serializable {
         this.birthday = birthday;
     }
 
-    public Long getId() {
-        return id;
+    public AddressDto getAddress() {
+        return address;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAddress(AddressDto address) {
+        this.address = address;
     }
 
     public DEPARTMENT getDepartment() {
@@ -176,13 +176,13 @@ public class LecturerDto implements Serializable {
                 Objects.equals(this.password, entity.password) &&
                 Objects.equals(this.gender, entity.gender) &&
                 Objects.equals(this.birthday, entity.birthday) &&
-                Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.address, entity.address) &&
                 Objects.equals(this.department, entity.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idNumber, name, surname, email, phoneNumber, dateCreated, deleted, dateUpdated, password, gender, birthday, id, department);
+        return Objects.hash(idNumber, name, surname, email, phoneNumber, dateCreated, deleted, dateUpdated, password, gender, birthday, address, department);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class LecturerDto implements Serializable {
                 "password = " + password + ", " +
                 "gender = " + gender + ", " +
                 "birthday = " + birthday + ", " +
-                "id = " + id + ", " +
+                "address = " + address + ", " +
                 "department = " + department + ")";
     }
 }

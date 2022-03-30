@@ -1,7 +1,6 @@
 package co.za.config;
 
 import co.za.entity.*;
-import co.za.entity.Module;
 import co.za.enums.DEPARTMENT;
 import co.za.enums.GENDER;
 import co.za.repository.*;
@@ -41,11 +40,11 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
         Lecturer lecturer = new Lecturer();
         Address address = new Address();
-        Course course = new Course();
-        Module module = new Module();
-        List<Module> modules = new ArrayList<>();
-        List<Book> bookList = new ArrayList<>();
-        Book book = new Book();
+        Courses course = new Courses();
+        Modules module = new Modules();
+        List<Modules> modules = new ArrayList<>();
+        List<Books> booksList = new ArrayList<>();
+        Books books = new Books();
 
         address.setCountry("South Afrca");
         address.setZipCode("1123");
@@ -67,12 +66,12 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         lecturer.setAddress(address);
         lecturerRepository.save(lecturer);
 
-        book.setBookName("Analytics book");
-        book.setAuthor("some guy write it");
-        book.setEdition("thrid edition");
-        book.setReleased(LocalDate.now());
-        bookRepository.save(book);
-        bookList.add(book);
+        books.setBookName("Analytics book");
+        books.setAuthor("some guy write it");
+        books.setEdition("thrid edition");
+        books.setReleased(LocalDate.now());
+        bookRepository.save(books);
+        booksList.add(books);
 
         module.setModuleCode("ANU101");
         module.setModuleName("Analytics and Stuff");
@@ -80,13 +79,32 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         module.setModuleTime(LocalDateTime.now());
         module.setModuleId(UUID.randomUUID().toString());
         module.setModuleGuideUrl("storage/analtic guide.pdf");
+//        module.setBooks(bookList);
         moduleRepository.save(module);
         modules.add(module);
 
-        course.setCourseName("Barchelor of Science");
-        course.setCourseCode("BSC");
+        course.setCourseName("Analiytics ans stans");
+        course.setCourseCode("AAS");
         course.setModule(modules);
         courseRepository.save(course);
+
+         Modules module1 = new Modules();
+        List<Modules> modules1 = new ArrayList<>();
+        module1.setModuleCode("C+1");
+        module1.setModuleName("C++ and Stuff");
+        module1.setLecturer(lecturer);
+        module1.setModuleTime(LocalDateTime.now());
+        module1.setModuleId(UUID.randomUUID().toString());
+        module1.setModuleGuideUrl("storage/C++ guide.pdf");
+//        module1.setBooks(bookList);
+        moduleRepository.save(module1);
+        modules1.add(module1);
+
+        Courses course1 = new Courses();
+        course1.setCourseName("Computer  Science");
+        course1.setCourseCode("BSC");
+        course1.setModule(modules1);
+        courseRepository.save(course1);
 
 //        StudentTO studentTO = new StudentTO();
 //        studentTO.setEmail("sada@asdsa");
