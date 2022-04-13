@@ -35,12 +35,13 @@ public class LecturerDto implements Serializable {
     private LocalDateTime birthday;
     @NotNull
     private AddressDto address;
+    private Long id;
     private DEPARTMENT department;
 
     public LecturerDto() {
     }
 
-    public LecturerDto(String idNumber, String name, String surname, String email, String phoneNumber, LocalDateTime dateCreated, boolean deleted, LocalDateTime dateUpdated, String password, GENDER gender, LocalDateTime birthday, AddressDto address, DEPARTMENT department) {
+    public LecturerDto(String idNumber, String name, String surname, String email, String phoneNumber, LocalDateTime dateCreated, boolean deleted, LocalDateTime dateUpdated, String password, GENDER gender, LocalDateTime birthday, AddressDto address, Long id, DEPARTMENT department) {
         this.idNumber = idNumber;
         this.name = name;
         this.surname = surname;
@@ -53,6 +54,7 @@ public class LecturerDto implements Serializable {
         this.gender = gender;
         this.birthday = birthday;
         this.address = address;
+        this.id = id;
         this.department = department;
     }
 
@@ -152,6 +154,14 @@ public class LecturerDto implements Serializable {
         this.address = address;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public DEPARTMENT getDepartment() {
         return department;
     }
@@ -177,12 +187,13 @@ public class LecturerDto implements Serializable {
                 Objects.equals(this.gender, entity.gender) &&
                 Objects.equals(this.birthday, entity.birthday) &&
                 Objects.equals(this.address, entity.address) &&
+                Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.department, entity.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idNumber, name, surname, email, phoneNumber, dateCreated, deleted, dateUpdated, password, gender, birthday, address, department);
+        return Objects.hash(idNumber, name, surname, email, phoneNumber, dateCreated, deleted, dateUpdated, password, gender, birthday, address, id, department);
     }
 
     @Override
@@ -200,6 +211,7 @@ public class LecturerDto implements Serializable {
                 "gender = " + gender + ", " +
                 "birthday = " + birthday + ", " +
                 "address = " + address + ", " +
+                "id = " + id + ", " +
                 "department = " + department + ")";
     }
 }

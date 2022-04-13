@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ModulesDto implements Serializable {
+public class ModuleDto implements Serializable {
+    private Long id;
     @NotEmpty
     private String moduleId;
     @NotEmpty
@@ -18,12 +19,13 @@ public class ModulesDto implements Serializable {
     private LocalDateTime moduleTime;
     @NotEmpty
     private String moduleGuideUrl;
-    private List<BooksDto> books = new ArrayList<>();
+    private List<BookDto> books = new ArrayList<>();
 
-    public ModulesDto() {
+    public ModuleDto() {
     }
 
-    public ModulesDto(String moduleId, String moduleName, String moduleCode, LecturerDto lecturer, LocalDateTime moduleTime, String moduleGuideUrl, List<BooksDto> books) {
+    public ModuleDto(Long id, String moduleId, String moduleName, String moduleCode, LecturerDto lecturer, LocalDateTime moduleTime, String moduleGuideUrl, List<BookDto> books) {
+        this.id = id;
         this.moduleId = moduleId;
         this.moduleName = moduleName;
         this.moduleCode = moduleCode;
@@ -31,6 +33,14 @@ public class ModulesDto implements Serializable {
         this.moduleTime = moduleTime;
         this.moduleGuideUrl = moduleGuideUrl;
         this.books = books;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getModuleId() {
@@ -81,11 +91,11 @@ public class ModulesDto implements Serializable {
         this.moduleGuideUrl = moduleGuideUrl;
     }
 
-    public List<BooksDto> getBooks() {
+    public List<BookDto> getBooks() {
         return books;
     }
 
-    public void setBooks(List<BooksDto> books) {
+    public void setBooks(List<BookDto> books) {
         this.books = books;
     }
 
@@ -93,8 +103,9 @@ public class ModulesDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ModulesDto entity = (ModulesDto) o;
-        return Objects.equals(this.moduleId, entity.moduleId) &&
+        ModuleDto entity = (ModuleDto) o;
+        return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.moduleId, entity.moduleId) &&
                 Objects.equals(this.moduleName, entity.moduleName) &&
                 Objects.equals(this.moduleCode, entity.moduleCode) &&
                 Objects.equals(this.lecturer, entity.lecturer) &&
@@ -105,12 +116,13 @@ public class ModulesDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(moduleId, moduleName, moduleCode, lecturer, moduleTime, moduleGuideUrl, books);
+        return Objects.hash(id, moduleId, moduleName, moduleCode, lecturer, moduleTime, moduleGuideUrl, books);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
                 "moduleId = " + moduleId + ", " +
                 "moduleName = " + moduleName + ", " +
                 "moduleCode = " + moduleCode + ", " +

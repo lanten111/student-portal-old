@@ -1,7 +1,7 @@
 package co.za.Controller;
 
-import co.za.dto.CoursesDto;
-import co.za.service.CourseService;
+import co.za.dto.CourseDto;
+import co.za.service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,30 +11,31 @@ import java.util.List;
 @RequestMapping("/api/v1/courses")
 public class CourseController {
 
-    private final CourseService courseService;
+    private final Service<CourseDto> service;
 
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
+    public CourseController(Service<CourseDto> service) {
+        this.service = service;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<CoursesDto>> getCourseList(){
-        return ResponseEntity.ok(courseService.getCourseList());
+    @GetMapping()
+    public ResponseEntity<List<CourseDto>> getCourseList(){
+        return ResponseEntity.ok(service.getList());
     }
 
-    @GetMapping("/course/{id}")
-    public ResponseEntity<CoursesDto> getCourse(@PathVariable String id){
-        return ResponseEntity.ok(courseService.getCourse(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDto> getCourse(@PathVariable String id){
+        return ResponseEntity.ok(service.get(Long.parseLong(id)));
     }
 
-    @PutMapping("/add-course")
-    public ResponseEntity<?> addNewCourse(@RequestBody CoursesDto coursesDto){
+    @PutMapping()
+    public ResponseEntity<?> addCourse(@RequestBody CourseDto courseDto){
+        service.add(courseDto);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/delete-Course/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable String id){
-        courseService.deleteCourse(id);
+        service.delete(Long.parseLong(id));
         return ResponseEntity.ok().build();
     }
 

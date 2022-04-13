@@ -1,7 +1,11 @@
 package co.za.repository;
 
-import co.za.entity.Books;
+import co.za.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepository extends JpaRepository<Books, Long> {
+import java.util.Optional;
+
+public interface BookRepository extends JpaRepository<Book, Long> {
+
+    Optional<Book> findById(long id);
 }

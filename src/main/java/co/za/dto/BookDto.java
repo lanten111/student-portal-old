@@ -4,22 +4,32 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class BooksDto implements Serializable {
+public class BookDto implements Serializable {
+    private Long id;
     private String bookName;
     private String isbn;
     private String author;
     private LocalDate released;
     private String edition;
 
-    public BooksDto() {
+    public BookDto() {
     }
 
-    public BooksDto(String bookName, String isbn, String author, LocalDate released, String edition) {
+    public BookDto(Long id, String bookName, String isbn, String author, LocalDate released, String edition) {
+        this.id = id;
         this.bookName = bookName;
         this.isbn = isbn;
         this.author = author;
         this.released = released;
         this.edition = edition;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBookName() {
@@ -66,8 +76,9 @@ public class BooksDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BooksDto entity = (BooksDto) o;
-        return Objects.equals(this.bookName, entity.bookName) &&
+        BookDto entity = (BookDto) o;
+        return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.bookName, entity.bookName) &&
                 Objects.equals(this.isbn, entity.isbn) &&
                 Objects.equals(this.author, entity.author) &&
                 Objects.equals(this.released, entity.released) &&
@@ -76,12 +87,13 @@ public class BooksDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookName, isbn, author, released, edition);
+        return Objects.hash(id, bookName, isbn, author, released, edition);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
                 "bookName = " + bookName + ", " +
                 "isbn = " + isbn + ", " +
                 "author = " + author + ", " +

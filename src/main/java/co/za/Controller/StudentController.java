@@ -2,7 +2,7 @@ package co.za.Controller;
 
 import co.za.dto.StudentDto;
 import co.za.entity.Student;
-import co.za.service.StudentService;
+import co.za.service.StudentModule.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,31 +25,30 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping(path = "studentNumber/{studentNumber}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Student> getStudentByStudentNumber(@PathVariable String studentNumber){
-        return ResponseEntity.ok(studentService.getStudent(studentNumber));
+    @GetMapping(path = "/{studentNumber}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentDto> getStudentByStudentNumber(@PathVariable String studentNumber){
+        return ResponseEntity.ok(studentService.getStudentByStudentNumber(studentNumber));
     }
 
-    @GetMapping(path = "id/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Student> getStudentById(@PathVariable(value ="id") long id){
-        return ResponseEntity.ok(studentService.getStudent(id));
+    @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable String id){
+        return ResponseEntity.ok(studentService.getStudent(Long.parseLong(id)));
     }
 
     @Operation(summary = "Get list of students")
     @ApiResponse(responseCode = "200", description = "return a list of all students in the database", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Student.class))})
-    @GetMapping(path = "/", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Student>> getAllStudents(){
-        return ResponseEntity.ok(studentService.getAllStudent());
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentDto>> getAllStudents(){
+        return ResponseEntity.ok(studentService.getStudentList());
     }
 
-    @PostMapping(path = "/create-account")
+    @PutMapping()
     public ResponseEntity<List<Student>> registerStudent(@RequestBody StudentDto studentDto){
-        studentService.studentRegister(studentDto);
+        studentService.createStudentAccount(studentDto);
        return ResponseEntity.ok().build();
     }
 }
 
-//localhost:8080/student/student/{studentNumber}
 
 
 

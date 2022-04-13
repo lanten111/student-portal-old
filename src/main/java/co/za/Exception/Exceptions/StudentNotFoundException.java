@@ -1,4 +1,4 @@
-package co.za.Exceptions;
+package co.za.Exception.Exceptions;
 
 public class StudentNotFoundException extends RuntimeException {
 

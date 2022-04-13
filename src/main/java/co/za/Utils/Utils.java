@@ -1,15 +1,10 @@
 package co.za.Utils;
 
-import co.za.entity.StudentCourse;
-import co.za.response.CourseResponse;
-import org.springframework.http.HttpStatus;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Utils {
 
-    public static String generateStudent(String idNumber, int studentsTotal){
+    public static String generateStudentNumber(String idNumber, int studentsTotal){
 
         LocalDateTime now = LocalDateTime.now();
         StringBuilder stringBuilder = new StringBuilder();
@@ -19,19 +14,4 @@ public class Utils {
         return stringBuilder.toString();
     }
 
-    public static CourseResponse generateResponse(List<StudentCourse> message){
-        CourseResponse courseResponse = new CourseResponse();
-        courseResponse.setCode(HttpStatus.OK.value());
-        courseResponse.setStatus(HttpStatus.OK.getReasonPhrase());
-        courseResponse.setDatas(message);
-        return courseResponse;
-    }
-
-
-//    public static SuccessTO generateResponse(String message){
-//        SuccessTO successTO = new SuccessTO();
-//        successTO.setCode(HttpStatus.OK.value());
-//        successTO.setStatus(HttpStatus.OK.getReasonPhrase());
-//        successTO.setData(message);
-//    }
 }

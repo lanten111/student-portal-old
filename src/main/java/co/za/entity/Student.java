@@ -1,6 +1,9 @@
 package co.za.entity;
 
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -9,42 +12,26 @@ import java.util.List;
 
 
 @Entity
+@Data
 public class Student extends Personnel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     @NotEmpty
     @Length(min = 10, max = 10 , message = "length must be 10 digits")
-    @Column(name = "STUDENT_NUMBER")
     private String studentNumber;
 
+    @Column
+    private Boolean registered;
+
+    @Column
     @OneToMany
-    @JoinColumn(name = "COURSE")
-    private List<StudentCourse> course;
+    private List<StudentCourse> studentCourses;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getStudentNumber() {
-        return studentNumber;
-    }
-
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
-    }
-
-    public List<StudentCourse> getCourse() {
-        return course;
-    }
-
-    public void setCourse(List<StudentCourse> course) {
-        this.course = course;
-    }
+    @Column
+    @OneToMany
+    private List<Assignment> assignments;
 }

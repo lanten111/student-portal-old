@@ -4,18 +4,28 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class CoursesDto implements Serializable {
+public class CourseDto implements Serializable {
+    private long id;
     private String courseName;
     private String courseCode;
-    private List<ModulesDto> module;
+    private List<ModuleDto> module;
 
-    public CoursesDto() {
+    public CourseDto() {
     }
 
-    public CoursesDto(String courseName, String courseCode, List<ModulesDto> module) {
+    public CourseDto(long id, String courseName, String courseCode, List<ModuleDto> module) {
+        this.id = id;
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.module = module;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCourseName() {
@@ -34,11 +44,11 @@ public class CoursesDto implements Serializable {
         this.courseCode = courseCode;
     }
 
-    public List<ModulesDto> getModule() {
+    public List<ModuleDto> getModule() {
         return module;
     }
 
-    public void setModule(List<ModulesDto> module) {
+    public void setModule(List<ModuleDto> module) {
         this.module = module;
     }
 
@@ -46,20 +56,22 @@ public class CoursesDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CoursesDto entity = (CoursesDto) o;
-        return Objects.equals(this.courseName, entity.courseName) &&
+        CourseDto entity = (CourseDto) o;
+        return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.courseName, entity.courseName) &&
                 Objects.equals(this.courseCode, entity.courseCode) &&
                 Objects.equals(this.module, entity.module);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(courseName, courseCode, module);
+        return Objects.hash(id, courseName, courseCode, module);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
                 "courseName = " + courseName + ", " +
                 "courseCode = " + courseCode + ", " +
                 "module = " + module + ")";

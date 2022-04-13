@@ -1,10 +1,14 @@
 package co.za.entity;
 
 import co.za.enums.DEPARTMENT;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 public class Lecturer extends Personnel {
 
     @Id
@@ -13,21 +17,5 @@ public class Lecturer extends Personnel {
 
     @Column(name = "DEPARTMENT")
     private DEPARTMENT department;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public DEPARTMENT getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(DEPARTMENT department) {
-        this.department = department;
-    }
 
 }

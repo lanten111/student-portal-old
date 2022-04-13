@@ -1,6 +1,7 @@
 package co.za.config;
 
 import co.za.entity.*;
+import co.za.entity.Module;
 import co.za.enums.DEPARTMENT;
 import co.za.enums.GENDER;
 import co.za.repository.*;
@@ -40,11 +41,11 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
         Lecturer lecturer = new Lecturer();
         Address address = new Address();
-        Courses course = new Courses();
-        Modules module = new Modules();
-        List<Modules> modules = new ArrayList<>();
-        List<Books> booksList = new ArrayList<>();
-        Books books = new Books();
+        Course course = new Course();
+        Module module = new Module();
+        List<Module> modules = new ArrayList<>();
+        List<Book> bookList = new ArrayList<>();
+        Book book = new Book();
 
         address.setCountry("South Afrca");
         address.setZipCode("1123");
@@ -66,12 +67,14 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         lecturer.setAddress(address);
         lecturerRepository.save(lecturer);
 
-        books.setBookName("Analytics book");
-        books.setAuthor("some guy write it");
-        books.setEdition("thrid edition");
-        books.setReleased(LocalDate.now());
-        bookRepository.save(books);
-        booksList.add(books);
+        List<Book> bookList1 = new ArrayList<>();
+        Book book1 = new Book();
+        book1.setBookName("Analytics book");
+        book1.setAuthor("some guy write it");
+        book1.setEdition("thrid edition");
+        book1.setReleased(LocalDate.now());
+        bookRepository.save(book1);
+        bookList1.add(book1);
 
         module.setModuleCode("ANU101");
         module.setModuleName("Analytics and Stuff");
@@ -79,7 +82,7 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         module.setModuleTime(LocalDateTime.now());
         module.setModuleId(UUID.randomUUID().toString());
         module.setModuleGuideUrl("storage/analtic guide.pdf");
-//        module.setBooks(bookList);
+        module.setBooks(bookList1);
         moduleRepository.save(module);
         modules.add(module);
 
@@ -88,8 +91,15 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         course.setModule(modules);
         courseRepository.save(course);
 
-         Modules module1 = new Modules();
-        List<Modules> modules1 = new ArrayList<>();
+        book.setBookName("Analytics book");
+        book.setAuthor("some guy write it");
+        book.setEdition("thrid edition");
+        book.setReleased(LocalDate.now());
+        bookRepository.save(book);
+        bookList.add(book);
+
+         Module module1 = new Module();
+        List<Module> modules1 = new ArrayList<>();
         module1.setModuleCode("C+1");
         module1.setModuleName("C++ and Stuff");
         module1.setLecturer(lecturer);
@@ -100,7 +110,7 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         moduleRepository.save(module1);
         modules1.add(module1);
 
-        Courses course1 = new Courses();
+        Course course1 = new Course();
         course1.setCourseName("Computer  Science");
         course1.setCourseCode("BSC");
         course1.setModule(modules1);

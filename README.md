@@ -20,9 +20,9 @@ course
 courseId
 name
 course_code
-List<module> modules
+List<module> module
 
-modules
+module
 ..........
 moduleId
 name
