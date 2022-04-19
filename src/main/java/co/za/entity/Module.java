@@ -1,7 +1,10 @@
 package co.za.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -10,14 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Module {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotEmpty
     @Column(name = "MODULE_ID")
@@ -37,9 +39,6 @@ public class Module {
 
     @Column(name = "MODULE_TIME", nullable = true)
     private LocalDateTime moduleTime;
-
-    @Column(name = "MODULE_ACTIVE", nullable = false)
-    private boolean isActive;
 
     @NotEmpty
     @Column(name = "MODULE_GUIDE_URL")

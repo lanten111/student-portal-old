@@ -1,7 +1,6 @@
 package co.za.service.lecturer;
 
 import co.za.dto.*;
-import co.za.entity.StudentCourse;
 
 import java.util.List;
 
@@ -11,25 +10,24 @@ public interface LecturerService {
 
     void updateStudentCourse(StudentCourseDto studentCourseDto);
 
-    void updateStudent(StudentDto studentDto);
+    void updateLecturer(LecturerDto lecturerDto);
 
-    void updateModule(ModuleDto moduleDto);
+    LecturerDto getLecturer(long id);
 
-    void deleteModules(ModuleDto moduleDto);
+    StudentDto getStudent(long id);
 
-    void addModules(ModuleDto moduleDto);
+    CourseDto getCourse(long id);
 
-    void updateCourse(CourseDto courseDto);
+    ModuleDto getModule(long id);
 
-    void deleteCourse(ModuleDto moduleDto);
+    BookDto getBook(long id);
 
-    void addCourses(ModuleDto moduleDto);
+    List<CourseDto> getCourses();
 
-    void addBooks(BookDto bookDto);
+    List<ModuleDto> getModules();
 
-    void deleteBooks(BookDto bookDto);
+    List<BookDto> getBooks();
 
     List<StudentDto> getStudents();
-
-    StudentDto getStudent();
 }
+

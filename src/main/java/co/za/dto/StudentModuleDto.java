@@ -2,6 +2,7 @@ package co.za.dto;
 
 import co.za.entity.Assignment;
 import co.za.entity.StudentCourse;
+import co.za.enums.SEMESTER;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,21 +15,17 @@ import java.util.Objects;
 @Data
 public class StudentModuleDto implements Serializable {
     private Long id;
-    @NotEmpty
     private String moduleId;
-    @NotEmpty
     private String moduleName;
-    @NotEmpty
     private int moduleMarks;
-    @NotEmpty
     private boolean completed;
-    @NotEmpty
     private String moduleCode;
     private LocalDateTime moduleTime;
-    @NotEmpty
     private String moduleGuideUrl;
     private List<StudentCourse> studentCourses;
     private List<Assignment> assignments;
+    private SEMESTER semester;
+    private boolean isActive;
 
 
 }

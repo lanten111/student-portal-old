@@ -1,7 +1,6 @@
 package co.za.Controller;
 
 import co.za.dto.ModuleDto;
-import co.za.service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,31 +10,31 @@ import java.util.List;
 @RequestMapping("/api/v1/modules")
 public class ModulesController {
 
-    private final Service<ModuleDto> service;
+    private final CourseService<ModuleDto> courseService;
 
-    public ModulesController(Service<ModuleDto> service) {
-        this.service = service;
+    public ModulesController(CourseService<ModuleDto> courseService) {
+        this.courseService = courseService;
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ModuleDto>> getBooks(){
-        return ResponseEntity.ok(service.getList());
+    public ResponseEntity<List<ModuleDto>> getModules(){
+        return ResponseEntity.ok(courseService.getList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ModuleDto> getModule(@PathVariable String id){
-        return ResponseEntity.ok(service.get(Long.parseLong(id)));
+        return ResponseEntity.ok(courseService.get(Long.parseLong(id)));
     }
 
     @PutMapping("")
-    public ResponseEntity<?> addNewCourse(@RequestBody ModuleDto moduleDto){
-        service.add(moduleDto);
+    public ResponseEntity<?> addModule(@RequestBody ModuleDto moduleDto){
+        courseService.add(moduleDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteModule(@PathVariable String id){
-        service.delete(Long.parseLong(id));
+        courseService.delete(Long.parseLong(id));
         return ResponseEntity.ok().build();
     }
 

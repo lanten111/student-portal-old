@@ -28,44 +28,43 @@ public class ExceptionHandlerImpl {
 
     @ExceptionHandler(StudentWithSameStudentNumberExist.class)
     public ResponseEntity<Object> idExistException (Exception exception, HttpServletRequest httpServletRequest){
-
-        ErrorTO errorTO = buildSameDataError(exception);
+        ErrorTO errorTO = buildNotFoundError("student with student number "+exception.getMessage() + " already exist");
         return new ResponseEntity<>(errorTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(StudentWithSameEmailExist.class)
     public ResponseEntity<Object> emailExistException (Exception exception, HttpServletRequest httpServletRequest){
-        ErrorTO errorTO = buildSameDataError(exception);
+        ErrorTO errorTO = buildNotFoundError("student with email "+exception.getMessage() + " already exist");
         return new ResponseEntity<>(errorTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity<Object> studentNotfound(Exception exception, HttpServletRequest httpServletRequest){
-        ErrorTO errorTO = buildNotFoundError(exception);
+        ErrorTO errorTO = buildNotFoundError("student with id "+exception.getMessage() + " Not found");
         return new ResponseEntity<>(errorTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CourseNotFoundException.class)
     public ResponseEntity<Object> courseNotFound(Exception exception, HttpServletRequest httpServletRequest){
-        ErrorTO errorTO = buildNotFoundError(exception);
+        ErrorTO errorTO = buildNotFoundError("course with id "+exception.getMessage() + " Not found");
         return new ResponseEntity<>(errorTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BookNotFoundException.class)
     public ResponseEntity<Object> bookNotFound(Exception exception, HttpServletRequest httpServletRequest){
-        ErrorTO errorTO = buildNotFoundError(exception);
+        ErrorTO errorTO = buildNotFoundError("book with id "+exception.getMessage() + " Not found");
         return new ResponseEntity<>(errorTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ModuleNotFoundException.class)
     public ResponseEntity<Object> ModuleNotFound(Exception exception, HttpServletRequest httpServletRequest){
-        ErrorTO errorTO = buildNotFoundError(exception);
+        ErrorTO errorTO = buildNotFoundError("module with id "+exception.getMessage() + " Not found");
         return new ResponseEntity<>(errorTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(LecturerNotFoundException.class)
     public ResponseEntity<Object> LecturerNotFound(Exception exception, HttpServletRequest httpServletRequest){
-        ErrorTO errorTO = buildNotFoundError(exception);
+        ErrorTO errorTO = buildNotFoundError("lecturer with id "+exception.getMessage() + " Not found");
         return new ResponseEntity<>(errorTO, HttpStatus.NOT_FOUND);
     }
 
@@ -101,10 +100,10 @@ public class ExceptionHandlerImpl {
         return new ResponseEntity<>(errorTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private ErrorTO buildNotFoundError(Exception exception){
+    private ErrorTO buildNotFoundError(String message){
         errorTO = new ErrorTO();
         exceptionTo = new ExceptionTO();
-        exceptionTo.setMessage(exception.getMessage());
+        exceptionTo.setMessage(message);
         exceptionTo.setTimeStamp(LocalDateTime.now().toString());
         errorTO.setStatus(HttpStatus.NOT_FOUND.getReasonPhrase());
         errorTO.setCode(HttpStatus.NOT_FOUND.value());
@@ -112,10 +111,10 @@ public class ExceptionHandlerImpl {
         return errorTO;
     }
 
-    private ErrorTO buildSameDataError(Exception exception){
+    private ErrorTO buildSameDataError(String message){
         errorTO = new ErrorTO();
         exceptionTo = new ExceptionTO();
-        exceptionTo.setMessage("Student with id number "+exception.getMessage()+" already exist");
+        exceptionTo.setMessage(message);
         exceptionTo.setTimeStamp(LocalDateTime.now().toString());
         errorTO.setStatus(HttpStatus.BAD_REQUEST.getReasonPhrase());
         errorTO.setCode(HttpStatus.BAD_REQUEST.value());

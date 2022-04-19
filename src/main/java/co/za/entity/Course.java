@@ -1,5 +1,6 @@
 package co.za.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,26 +9,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Data
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter
-@Setter
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @Column(name = "COURSE_NAME", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String courseName;
 
-    @Column(name = "COURSE_CODE", nullable = false, length = 10)
+    @Column( nullable = false, length = 10)
     private String courseCode;
 
-    @Column(name = "COURSE_DURATION", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime courseDuration;
 
     @OneToMany
-    @JoinColumn(name = "MODULE", nullable = true)
+    @JoinColumn( nullable = true)
     private List<Module> module;
 
 

@@ -1,10 +1,13 @@
 package co.za.service.StudentModule;
 
 import co.za.dto.*;
+import co.za.entity.Student;
 
 import java.util.List;
 
 public interface StudentService {
+
+    Student getStudentDb(long id);
 
     StudentDto getStudentByStudentNumber(String StudentNumeber);
 
@@ -18,15 +21,9 @@ public interface StudentService {
 
     void createStudentAccount(StudentDto studentDto);
 
-    List<StudentDto> getStudentList();
-
-    int deleteStudent(long id);
-
     List<DocumentDto> getDocuments(long id);
 
     void uploadDocuments(List<DocumentDto> documentDtos, long studentId);
-
-    int deleteDocument(DocumentDto documentDto);
 
     void submitAssignment(AssignmentDto assignmentDto);
 }

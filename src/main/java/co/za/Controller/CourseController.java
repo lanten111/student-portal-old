@@ -1,7 +1,6 @@
 package co.za.Controller;
 
 import co.za.dto.CourseDto;
-import co.za.service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,31 +10,31 @@ import java.util.List;
 @RequestMapping("/api/v1/courses")
 public class CourseController {
 
-    private final Service<CourseDto> service;
+    private final CourseService<CourseDto> courseService;
 
-    public CourseController(Service<CourseDto> service) {
-        this.service = service;
+    public CourseController(CourseService<CourseDto> courseService) {
+        this.courseService = courseService;
     }
 
     @GetMapping()
     public ResponseEntity<List<CourseDto>> getCourseList(){
-        return ResponseEntity.ok(service.getList());
+        return ResponseEntity.ok(courseService.getList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseDto> getCourse(@PathVariable String id){
-        return ResponseEntity.ok(service.get(Long.parseLong(id)));
+        return ResponseEntity.ok(courseService.get(Long.parseLong(id)));
     }
 
     @PutMapping()
     public ResponseEntity<?> addCourse(@RequestBody CourseDto courseDto){
-        service.add(courseDto);
+        courseService.add(courseDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable String id){
-        service.delete(Long.parseLong(id));
+        courseService.delete(Long.parseLong(id));
         return ResponseEntity.ok().build();
     }
 

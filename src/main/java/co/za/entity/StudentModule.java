@@ -1,5 +1,6 @@
 package co.za.entity;
 
+import co.za.enums.SEMESTER;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,9 @@ public class StudentModule extends Module {
     @Column()
     private String moduleGuideUrl;
 
+    @Column
+    private SEMESTER semester;
+
     @JoinColumn()
     @OneToMany
     private List<Book> books = new ArrayList<>();
@@ -32,5 +36,9 @@ public class StudentModule extends Module {
     @JoinColumn()
     @OneToMany
     private List<Assignment> assignments = new ArrayList<>();
+
+    @Column(nullable = false)
+    private boolean isActive;
+
 
 }

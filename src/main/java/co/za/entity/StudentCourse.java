@@ -1,5 +1,6 @@
 package co.za.entity;
 
+import co.za.enums.SEMESTER;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,9 @@ public class StudentCourse extends Course {
     @ManyToOne
     @JoinColumn()
     private Student student;
+
+    @Column
+    private SEMESTER semester;
 
     @ManyToMany
     @JoinColumn( nullable = true)

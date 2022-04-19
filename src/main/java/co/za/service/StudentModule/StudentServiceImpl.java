@@ -7,11 +7,11 @@ import co.za.Utils.Utils;
 import co.za.dto.*;
 import co.za.entity.*;
 import co.za.entity.Module;
+import co.za.enums.SEMESTER;
 import co.za.repository.*;
 import co.za.service.CourseModule.CourseServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -47,7 +47,7 @@ public class StudentServiceImpl implements StudentService{
 
 
 
-    private Student getStudentDb(long id){
+    public Student getStudentDb(long id){
         return studentRepository.findAllById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
@@ -163,7 +163,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public StudentDto getStudentByStudentNumber(String studentNumber){
-        return mapToStudentDto(studentRepository.findAllByStudentNumber(studentNumber).orElseThrow(() -> new StudentNotFoundException(studentNumber)));
+        return mapToStudentDto(studentRepository.findByStudentNumber(studentNumber).orElseThrow(() -> new StudentNotFoundException(studentNumber)));
     }
 
 
@@ -202,6 +202,7 @@ public class StudentServiceImpl implements StudentService{
         studentCourse.setDateEnrolled(LocalDateTime.now());
         studentCourse.setCompleted(false);
         studentCourse.setGpa(0);
+        studentCourse.setSemester(SEMESTER.FIRST_SEMESTER);
         List<StudentModule> studentModuleList = new ArrayList<>();
         for (Module module : course.getModule()){
             StudentModule studentModule = new StudentModule();
@@ -212,6 +213,7 @@ public class StudentServiceImpl implements StudentService{
             studentModule.setLecturer(studentModule.getLecturer());
             studentModule.setModuleGuideUrl(studentModule.getModuleGuideUrl());
             studentModule.setBooks(module.getBooks());
+            studentModule.setSemester(SEMESTER.FIRST_SEMESTER);
             studentModuleRepository.save(studentModule);
             studentModuleList.add(studentModule);
         }

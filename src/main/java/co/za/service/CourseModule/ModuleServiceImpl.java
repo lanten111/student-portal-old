@@ -11,7 +11,6 @@ import co.za.entity.Module;
 import co.za.repository.BookRepository;
 import co.za.repository.LecturerRepository;
 import co.za.repository.ModulesRepository;
-import co.za.service.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
 import static co.za.service.ServiceMapper.*;
 
 @org.springframework.stereotype.Service
-public class ModuleServiceImpl implements Service<ModuleDto> {
+public class ModuleServiceImpl implements CourseService<ModuleDto> {
 
     private final ModulesRepository modulesRepository;
 
@@ -40,18 +39,18 @@ public class ModuleServiceImpl implements Service<ModuleDto> {
 
     @Override
     public ModuleDto get(long id){
-        return mapToModuleDto(modulesRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Module not found")));
+        return mapToModuleDto(modulesRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id)));
     }
 
     @Override
     public void add(ModuleDto moduleDto){
         List<Book> bookList = new ArrayList<>();
         for (BookDto book: moduleDto.getBooks()){
-            Book books = bookRepository.findById(book.getId()).orElseThrow(() -> new ModuleNotFoundException("selected book does not exist"));
+            Book books = bookRepository.findById(book.getId()).orElseThrow(() -> new ModuleNotFoundException(moduleDto.getId()));
             bookRepository.save(books);
             bookList.add(books);
         }
-        Lecturer lecturer = lecturerRepository.findById(moduleDto.getLecturer().getId()).orElseThrow(() -> new LecturerNotFoundException("Selected Lecturer does not exist"));
+        Lecturer lecturer = lecturerRepository.findById(moduleDto.getId()).orElseThrow(() -> new LecturerNotFoundException(moduleDto.getId()));
         Module module = mapToModule(moduleDto);
         module.setBooks(bookList);
         module.setLecturer(lecturer);

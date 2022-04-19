@@ -4,14 +4,13 @@ import co.za.Exception.Exceptions.BookNotFoundException;
 import co.za.dto.BookDto;
 import co.za.entity.Book;
 import co.za.repository.BookRepository;
-import co.za.service.Service;
 
 import java.util.List;
 
 import static co.za.service.ServiceMapper.*;
 
 @org.springframework.stereotype.Service
-public class BookServiceImpl implements Service<BookDto> {
+public class BookServiceImpl {
 
     private final BookRepository bookRepository;
 
@@ -20,25 +19,24 @@ public class BookServiceImpl implements Service<BookDto> {
         this.bookRepository = bookRepository;
     }
 
-    @Override
-    public BookDto get(long id) {
-        return mapToBookDto(bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found")));
+    public BookDto getBook(long id) {
+        return mapToBookDto(bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id)));
     }
 
-    @Override
-    public void add(BookDto dto) {
-        Book book = mapToBook(dto);
-        bookRepository.save(book);
+    public void addBooks(List<BookDto> bookDtoList) {
+        for (BookDto bookDto: bookDtoList){
+            Book book = mapToBook(bookDto);
+            bookRepository.save(book);
+        }
     }
 
-    @Override
-    public List<BookDto> getList() {
+    public List<BookDto> getBooks() {
         return mapToBooksDto(bookRepository.findAll());
     }
 
-    @Override
-    public int delete(long id) {
-        bookRepository.deleteById(id);
-        return 0;
+    public void deleteBooks(List<BookDto> bookDtoList) {
+        for (BookDto bookDto: bookDtoList){
+            bookRepository.deleteById(bookDto.getId());
+        }
     }
 }

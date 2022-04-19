@@ -81,6 +81,10 @@ public class ServiceMapper {
         Course course = new Course();
         course.setCourseCode(course.getCourseCode());
         course.setCourseName(course.getCourseName());
+        course.setCourseDuration(courseDto.getCourseDuration());
+        for (ModuleDto moduleDto: courseDto.getModule()){
+
+        }
         return course;
     }
 
