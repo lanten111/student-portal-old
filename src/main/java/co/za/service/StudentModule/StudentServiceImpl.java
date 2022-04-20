@@ -9,7 +9,7 @@ import co.za.entity.*;
 import co.za.entity.Module;
 import co.za.enums.SEMESTER;
 import co.za.repository.*;
-import co.za.service.CourseModule.CourseServiceImpl;
+import co.za.service.CourseModule.CourseService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class StudentServiceImpl implements StudentService{
 
     private final DocumentRepository documentRepository;
 
-    private final CourseServiceImpl courseServiceImpl;
+    private final CourseService courseService;
 
     private final AssignmentRepository assignmentRepository;
 
@@ -46,19 +46,13 @@ public class StudentServiceImpl implements StudentService{
 //    private final PasswordEncoder passwordEncoder;
 
 
-
-    public Student getStudentDb(long id){
-        return studentRepository.findAllById(id).orElseThrow(() -> new StudentNotFoundException(id));
-    }
-
     @Override
-    public List<StudentDto> getStudentList() {
+    public List<StudentDto> getStudents() {
         return mapToStudentsDto(studentRepository.findAll());
     }
 
-    @Override
-    public int deleteStudent(long id) {
-        return 0;
+    public Student getStudentDb(long id){
+        return studentRepository.findAllById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
 
@@ -121,16 +115,12 @@ public class StudentServiceImpl implements StudentService{
         studentRepository.save(student);
     }
 
-    @Override
-    public int deleteDocument(DocumentDto documentDto) {
-        return 0;
-    }
 
     @Override
     @Transactional
     public void register(RegistrationDto registrationDto) {
         Student student = getStudentDb(registrationDto.getStudentId());
-        Course course = courseServiceImpl.getCourse(registrationDto.getCourseId());
+        Course course = courseService.getCourseDb(registrationDto.getCourseId());
         student.setStudentCourses(Collections.singletonList(createStudentCourse(course)));
         studentRepository.save(student);
     }
@@ -154,6 +144,11 @@ public class StudentServiceImpl implements StudentService{
         assignmentRepository.save(assignment);
         student.setAssignments(Collections.singletonList(assignment));
         studentRepository.save(student);
+    }
+
+    @Override
+    public void deleteStudent(long id) {
+        studentRepository.deleteById(id);
     }
 
     @Override

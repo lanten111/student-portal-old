@@ -1,13 +1,21 @@
 package co.za.service.admin;
 
-import co.za.Exception.Exceptions.BookNotFoundException;
+import co.za.Exception.Exceptions.CourseNotFoundException;
+import co.za.Exception.Exceptions.LecturerNotFoundException;
+import co.za.Exception.Exceptions.ModuleNotFoundException;
 import co.za.dto.*;
-import co.za.entity.Book;
-import co.za.entity.Student;
+import co.za.entity.*;
+import co.za.entity.Module;
 import co.za.repository.*;
-import co.za.service.CourseModule.CourseServiceImpl;
+import co.za.service.CourseModule.BookService;
+import co.za.service.CourseModule.CourseService;
+import co.za.service.CourseModule.ModuleService;
+import co.za.service.StudentModule.StudentService;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static co.za.service.ServiceMapper.*;
@@ -25,39 +33,23 @@ public class AdminServiceImpl implements AdminService{
 
     private final DocumentRepository documentRepository;
 
-    private final CourseServiceImpl courseServiceImpl;
-
     private final AssignmentRepository assignmentRepository;
 
-    @Override
-    public Student getStudentDb(long id) {
-        return null;
-    }
+    private final StudentService studentService;
 
-    @Override
-    public StudentDto getStudentByStudentNumber(String StudentNumeber) {
-        return null;
-    }
+    private final ModulesRepository modulesRepository;
 
-    @Override
-    public StudentResultsDto getResults(long id) {
-        return null;
-    }
+    private final CourseRepository courseRepository;
 
-    @Override
-    public void register(RegistrationDto registrationDto) {
+    private final LecturerRepository lecturerRepository;
 
-    }
+    private BookService bookService;
 
-    @Override
-    public void createStudentAccount(StudentDto studentDto) {
+    private CourseService courseService;
 
-    }
+    private ModuleService moduleService;
 
-    @Override
-    public void submitAssignment(AssignmentDto assignmentDto) {
 
-    }
 
     @Override
     public List<LecturerDto> getLecturers() {
@@ -66,62 +58,80 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void updateStudent(StudentDto studentDto) {
-
-    }
-
-    @Override
-    public void updateCourse(CourseDto courseDto) {
-
-    }
-
-    @Override
-    public void addCourses(List<CourseDto> courseDtoList) {
-
+        Student student = studentService.getStudentDb(studentDto.getId());
+        student.setPhoneNumber(studentDto.getPhoneNumber());
+        student.setSurname(studentDto.getSurname());
+        student.setName(studentDto.getName());
+        student.setProfilePicture(studentDto.getProfilePicture());
+        studentRepository.save(student);
     }
 
     @Override
     public void updateModule(ModuleDto moduleDto) {
-
-    }
-
-    @Override
-    public void addModules(List<ModuleDto> moduleDtoList) {
-
-    }
-
-    @Override
-    public void addBooks(List<BookDto> bookDtoList) {
-
-    }
-
-    @Override
-    public void updateBooks(BookDto bookDto) {
-
+        Module module = modulesRepository.getOne(moduleDto.getId());
+        module.setModuleGuideUrl(moduleDto.getModuleGuideUrl());
+        module.setModuleName(module.getModuleName());
+        module.setModuleTime(moduleDto.getModuleTime());
     }
 
     @Override
     public void deleteModules(ModuleDto moduleDto) {
-
+        modulesRepository.deleteById(moduleDto.getId());
     }
 
     @Override
     public void deleteBooks(List<BookDto> bookDtoList) {
+        bookService.deleteBooks(bookDtoList);
+    }
 
+    @Override
+    public void addModules(List<ModuleDto> moduleDtoList) {
+        for (ModuleDto moduleDto: moduleDtoList){
+            List<Book> bookList = new ArrayList<>();
+            for (BookDto book: moduleDto.getBooks()){
+                Book books = bookRepository.findById(book.getId()).orElseThrow(() -> new ModuleNotFoundException(moduleDto.getId()));
+                bookRepository.save(books);
+                bookList.add(books);
+            }
+            Lecturer lecturer = lecturerRepository.findById(moduleDto.getId()).orElseThrow(() -> new LecturerNotFoundException(moduleDto.getId()));
+            Module module = mapToModule(moduleDto);
+            module.setBooks(bookList);
+            module.setLecturer(lecturer);
+            modulesRepository.save(module);
+        }
+    }
+
+    @Override
+    public void addBooks(List<BookDto> bookDtoList) {
+        bookService.addBooks(bookDtoList);
+    }
+
+    @Override
+    public void updateBook(BookDto bookDto) {
+        bookService.updateBook(bookDto);
+    }
+
+    @Override
+    public void updateCourse(CourseDto courseDto) {
+        Course course = courseRepository.findById(courseDto.getId()).orElseThrow(() -> new CourseNotFoundException(courseDto.getId()));
+        course.setCourseCode(course.getCourseCode());
+        course.setCourseName(course.getCourseName());
+        course.setCourseDuration(courseDto.getCourseDuration());
     }
 
     @Override
     public void deleteCourse(CourseDto courseDto) {
-
+        courseRepository.deleteById(courseDto.getId());
     }
 
     @Override
     public void deleteStudent(long id) {
-
+        studentService.deleteStudent(id);
     }
 
     @Override
-    public List<DocumentDto> getDocuments(long id) {
-        return null;
+    public List<DocumentDto> getDocuments(long userId) {
+        return mapToDocumentsDto(documentRepository.findAllById(Collections.singletonList(userId)));
     }
 
     @Override
@@ -135,62 +145,11 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public void updateStudentModule(StudentModuleDto studentModuleDto) {
-
+    public void addCourses(List<CourseDto> courseDtoList) {
+        for (CourseDto courseDto: courseDtoList){
+            Course course = mapToCourse(courseDto);
+            courseRepository.save(course);
+        }
     }
 
-    @Override
-    public void updateStudentCourse(StudentCourseDto studentCourseDto) {
-
-    }
-
-    @Override
-    public void updateLecturer(LecturerDto lecturerDto) {
-
-    }
-
-    @Override
-    public LecturerDto getLecturer(long id) {
-        return null;
-    }
-
-    @Override
-    public StudentDto getStudent(long id) {
-        return null;
-    }
-
-    @Override
-    public CourseDto getCourse(long id) {
-        return null;
-    }
-
-    @Override
-    public ModuleDto getModule(long id) {
-        return null;
-    }
-
-    @Override
-    public BookDto getBook(long id) {
-        return null;
-    }
-
-    @Override
-    public List<CourseDto> getCourses() {
-        return null;
-    }
-
-    @Override
-    public List<ModuleDto> getModules() {
-        return null;
-    }
-
-    @Override
-    public List<BookDto> getBooks() {
-        return null;
-    }
-
-    @Override
-    public List<StudentDto> getStudents() {
-        return null;
-    }
 }

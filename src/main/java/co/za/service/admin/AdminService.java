@@ -6,7 +6,7 @@ import co.za.service.lecturer.LecturerService;
 
 import java.util.List;
 
-public interface AdminService extends LecturerService, StudentService {
+public interface AdminService {
 
     List<LecturerDto> getLecturers();
 
@@ -22,7 +22,7 @@ public interface AdminService extends LecturerService, StudentService {
 
     void addBooks(List<BookDto> bookDtoList);
 
-    void updateBooks(BookDto bookDto);
+    void updateBook(BookDto bookDto);
 
     void deleteModules(ModuleDto moduleDto);
 
@@ -32,7 +32,7 @@ public interface AdminService extends LecturerService, StudentService {
 
     void deleteStudent(long id);
 
-    List<DocumentDto> getDocuments(long id);
+    List<DocumentDto> getDocuments(long userId);
 
     void uploadDocuments(List<DocumentDto> documentDtos, long studentId);
 

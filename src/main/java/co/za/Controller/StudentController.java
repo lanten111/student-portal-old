@@ -39,7 +39,7 @@ public class StudentController {
     @ApiResponse(responseCode = "200", description = "return a list of all students in the database", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Student.class))})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StudentDto>> getAllStudents(){
-        return ResponseEntity.ok(studentService.getStudentList());
+        return ResponseEntity.ok(studentService.getStudents());
     }
 
     @PutMapping()

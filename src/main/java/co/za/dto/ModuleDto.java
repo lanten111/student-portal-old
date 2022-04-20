@@ -6,12 +6,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 public class ModuleDto implements Serializable {
@@ -19,7 +17,7 @@ public class ModuleDto implements Serializable {
     private String moduleId;
     private String moduleName;
     private String moduleCode;
-    private long lecturerId;
+    private LecturerDto lecturerDto;
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty("date")

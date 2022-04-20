@@ -118,7 +118,7 @@ public class ServiceMapper {
             booksList.add(mapToBookDto(book));
         }
         moduleDto.setBooks(booksList);
-        moduleDto.setLecturer(mapToLecture(module.getLecturer()));
+        moduleDto.setLecturerDto(mapToLectureDto(module.getLecturer()));
         return moduleDto;
     }
 
@@ -150,7 +150,7 @@ public class ServiceMapper {
         return bookDtos;
     }
 
-    private static LecturerDto mapToLecture(Lecturer lecturer){
+    public static LecturerDto mapToLectureDto(Lecturer lecturer){
         LecturerDto lecturerDto = new LecturerDto();
         lecturerDto.setBirthday(lecturer.getBirthday());
         lecturerDto.setDeleted(lecturer.isDeleted());
@@ -168,7 +168,7 @@ public class ServiceMapper {
         return  lecturerDto;
     }
 
-    private static AddressDto mapToAddress(Address address){
+    public static AddressDto mapToAddress(Address address){
         AddressDto addressDto = new AddressDto();
         addressDto.setStreetName(address.getStreetName());
         addressDto.setCountry(addressDto.getCountry());
@@ -178,7 +178,7 @@ public class ServiceMapper {
         return addressDto;
     }
 
-    private static DocumentDto mapToDocumentDto(Document document){
+    public static DocumentDto mapToDocumentDto(Document document){
         DocumentDto documentDto = new DocumentDto();
         documentDto.setDocument(document.getDocument());
         documentDto.setDocumentId(document.getDocumentId());
@@ -194,6 +194,15 @@ public class ServiceMapper {
         document.setDocumentType(documentDto.getDocumentType());
         return document;
     }
+
+    public static List<Document> mapToDocuments(List<DocumentDto> documentDtoList){
+        List<Document> documents = new ArrayList<>();
+        for (DocumentDto documentDto: documentDtoList){
+            documents.add(mapToDocument(documentDto));
+        }
+        return documents;
+    }
+
 
     public static List<DocumentDto> mapToDocumentsDto(List<Document> documents){
         List<DocumentDto> documentDtoList = new ArrayList<>();

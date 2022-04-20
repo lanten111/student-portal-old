@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface StudentService {
 
+    List<StudentDto> getStudents();
+
     Student getStudentDb(long id);
 
     StudentDto getStudentByStudentNumber(String StudentNumeber);
@@ -26,4 +28,6 @@ public interface StudentService {
     void uploadDocuments(List<DocumentDto> documentDtos, long studentId);
 
     void submitAssignment(AssignmentDto assignmentDto);
+
+    void deleteStudent(long id);
 }

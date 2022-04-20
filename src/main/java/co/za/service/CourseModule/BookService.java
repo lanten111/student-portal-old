@@ -4,18 +4,19 @@ import co.za.Exception.Exceptions.BookNotFoundException;
 import co.za.dto.BookDto;
 import co.za.entity.Book;
 import co.za.repository.BookRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static co.za.service.ServiceMapper.*;
 
-@org.springframework.stereotype.Service
-public class BookServiceImpl {
+@Service
+public class BookService {
 
     private final BookRepository bookRepository;
 
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -28,6 +29,16 @@ public class BookServiceImpl {
             Book book = mapToBook(bookDto);
             bookRepository.save(book);
         }
+    }
+
+    public void updateBook(BookDto bookDto){
+        Book book = bookRepository.findById(bookDto.getId()).orElseThrow(() -> new BookNotFoundException(bookDto.getId()));
+        book.setReleased(bookDto.getReleased());
+        book.setBookName(bookDto.getBookName());
+        book.setEdition(bookDto.getEdition());
+        book.setAuthor(bookDto.getAuthor());
+        book.setIsbn(bookDto.getIsbn());
+        bookRepository.save(book);
     }
 
     public List<BookDto> getBooks() {

@@ -15,13 +15,13 @@ import java.util.List;
 import static co.za.service.ServiceMapper.*;
 
 @org.springframework.stereotype.Service
-public class CourseServiceImpl  {
+public class CourseService {
 
     private final CourseRepository courseRepository;
 
     private final ModulesRepository modulesRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository, ModulesRepository modulesRepository) {
+    public CourseService(CourseRepository courseRepository, ModulesRepository modulesRepository) {
         this.courseRepository = courseRepository;
         this.modulesRepository = modulesRepository;
     }
@@ -47,13 +47,20 @@ public class CourseServiceImpl  {
         }
     }
 
+    public void updateCourse(CourseDto courseDto){
+        Course  course = courseRepository.findById(courseDto.getId()).orElseThrow(() -> new CourseNotFoundException(courseDto.getId()));
+        course.setCourseCode(course.getCourseCode());
+        course.setCourseName(course.getCourseName());
+        course.setCourseDuration(course.getCourseDuration());
+        courseRepository.save(course);
+    }
+
     public List<CourseDto> getCourses(){
         return mapToCoursesDto(courseRepository.findAll());
     }
 
-    public int delete(long id){
+    public void delete(long id){
         courseRepository.deleteById(id);
-        return 1;
     }
 
 }
