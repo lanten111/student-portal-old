@@ -1,4 +1,4 @@
-package co.za.service.CourseModule;
+package co.za.service.documentModule;
 
 import co.za.dto.DocumentDto;
 import co.za.entity.Document;
@@ -11,7 +11,7 @@ import java.util.List;
 import static co.za.service.ServiceMapper.*;
 
 @AllArgsConstructor
-public class DocumentService {
+public class DocumentServiceImpl {
 
     private final DocumentRepository documentRepository;
 

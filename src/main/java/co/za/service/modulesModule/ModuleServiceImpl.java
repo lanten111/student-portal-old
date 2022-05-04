@@ -1,4 +1,4 @@
-package co.za.service.CourseModule;
+package co.za.service.modulesModule;
 
 import co.za.Exception.Exceptions.BookNotFoundException;
 import co.za.Exception.Exceptions.LecturerNotFoundException;
@@ -19,7 +19,7 @@ import java.util.List;
 import static co.za.service.ServiceMapper.*;
 
 @Service
-public class ModuleService {
+public class ModuleServiceImpl {
 
     private final ModulesRepository modulesRepository;
 
@@ -27,7 +27,7 @@ public class ModuleService {
 
     private final LecturerRepository lecturerRepository;
 
-    public ModuleService(ModulesRepository modulesRepository, BookRepository bookRepository, LecturerRepository lecturerRepository) {
+    public ModuleServiceImpl(ModulesRepository modulesRepository, BookRepository bookRepository, LecturerRepository lecturerRepository) {
         this.modulesRepository = modulesRepository;
         this.bookRepository = bookRepository;
         this.lecturerRepository = lecturerRepository;

@@ -1,4 +1,4 @@
-package co.za.service.admin;
+package co.za.service.adminMOdule;
 
 import co.za.Exception.Exceptions.CourseNotFoundException;
 import co.za.Exception.Exceptions.LecturerNotFoundException;
@@ -7,14 +7,13 @@ import co.za.dto.*;
 import co.za.entity.*;
 import co.za.entity.Module;
 import co.za.repository.*;
-import co.za.service.CourseModule.BookService;
-import co.za.service.CourseModule.CourseService;
-import co.za.service.CourseModule.ModuleService;
+import co.za.service.BookModule.BookServiceImpl;
+import co.za.service.CourseModule.CourseServiceImpl;
+import co.za.service.modulesModule.ModuleServiceImpl;
 import co.za.service.StudentModule.StudentService;
 import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,11 +42,11 @@ public class AdminServiceImpl implements AdminService{
 
     private final LecturerRepository lecturerRepository;
 
-    private BookService bookService;
+    private BookServiceImpl bookServiceImpl;
 
-    private CourseService courseService;
+    private CourseServiceImpl courseServiceImpl;
 
-    private ModuleService moduleService;
+    private ModuleServiceImpl moduleServiceImpl;
 
 
 
@@ -81,7 +80,7 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void deleteBooks(List<BookDto> bookDtoList) {
-        bookService.deleteBooks(bookDtoList);
+        bookServiceImpl.deleteBooks(bookDtoList);
     }
 
     @Override
@@ -103,12 +102,12 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void addBooks(List<BookDto> bookDtoList) {
-        bookService.addBooks(bookDtoList);
+        bookServiceImpl.addBooks(bookDtoList);
     }
 
     @Override
     public void updateBook(BookDto bookDto) {
-        bookService.updateBook(bookDto);
+        bookServiceImpl.updateBook(bookDto);
     }
 
     @Override

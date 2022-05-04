@@ -9,7 +9,7 @@ import co.za.entity.*;
 import co.za.entity.Module;
 import co.za.enums.SEMESTER;
 import co.za.repository.*;
-import co.za.service.CourseModule.CourseService;
+import co.za.service.CourseModule.CourseServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class StudentServiceImpl implements StudentService{
 
     private final DocumentRepository documentRepository;
 
-    private final CourseService courseService;
+    private final CourseServiceImpl courseServiceImpl;
 
     private final AssignmentRepository assignmentRepository;
 
@@ -120,7 +120,7 @@ public class StudentServiceImpl implements StudentService{
     @Transactional
     public void register(RegistrationDto registrationDto) {
         Student student = getStudentDb(registrationDto.getStudentId());
-        Course course = courseService.getCourseDb(registrationDto.getCourseId());
+        Course course = courseServiceImpl.getCourseDb(registrationDto.getCourseId());
         student.setStudentCourses(Collections.singletonList(createStudentCourse(course)));
         studentRepository.save(student);
     }

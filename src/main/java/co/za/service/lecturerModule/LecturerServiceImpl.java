@@ -1,12 +1,12 @@
-package co.za.service.lecturer;
+package co.za.service.lecturerModule;
 
 import co.za.Exception.Exceptions.LecturerNotFoundException;
 import co.za.dto.*;
 import co.za.entity.*;
 import co.za.repository.*;
-import co.za.service.CourseModule.BookService;
-import co.za.service.CourseModule.CourseService;
-import co.za.service.CourseModule.ModuleService;
+import co.za.service.BookModule.BookServiceImpl;
+import co.za.service.CourseModule.CourseServiceImpl;
+import co.za.service.modulesModule.ModuleServiceImpl;
 import co.za.service.StudentModule.StudentService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -39,11 +39,11 @@ public class LecturerServiceImpl implements LecturerService {
 
     private final StudentService studentService;
 
-    private final BookService bookService;
+    private final BookServiceImpl bookServiceImpl;
 
-    private final CourseService courseService;
+    private final CourseServiceImpl courseServiceImpl;
 
-    private final ModuleService moduleService;
+    private final ModuleServiceImpl moduleServiceImpl;
 
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -89,32 +89,32 @@ public class LecturerServiceImpl implements LecturerService {
 
     @Override
     public CourseDto getCourse(long id) {
-        return courseService.getCourse(id);
+        return courseServiceImpl.getCourse(id);
     }
 
     @Override
     public ModuleDto getModule(long id) {
-        return moduleService.getModule(id);
+        return moduleServiceImpl.getModule(id);
     }
 
     @Override
     public BookDto getBook(long id) {
-        return bookService.getBook(id);
+        return bookServiceImpl.getBook(id);
     }
 
     @Override
     public List<CourseDto> getCourses() {
-        return courseService.getCourses();
+        return courseServiceImpl.getCourses();
     }
 
     @Override
     public List<ModuleDto> getModules() {
-        return moduleService.getModules();
+        return moduleServiceImpl.getModules();
     }
 
     @Override
     public List<BookDto> getBooks() {
-        return bookService.getBooks();
+        return bookServiceImpl.getBooks();
     }
 
     @Override

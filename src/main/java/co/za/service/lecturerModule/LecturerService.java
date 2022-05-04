@@ -1,4 +1,4 @@
-package co.za.service.lecturer;
+package co.za.service.lecturerModule;
 
 import co.za.dto.*;
 

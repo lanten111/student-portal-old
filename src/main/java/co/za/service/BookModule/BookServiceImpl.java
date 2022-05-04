@@ -1,4 +1,4 @@
-package co.za.service.CourseModule;
+package co.za.service.BookModule;
 
 import co.za.Exception.Exceptions.BookNotFoundException;
 import co.za.dto.BookDto;
@@ -11,12 +11,12 @@ import java.util.List;
 import static co.za.service.ServiceMapper.*;
 
 @Service
-public class BookService {
+public class BookServiceImpl implements BookService{
 
     private final BookRepository bookRepository;
 
 
-    public BookService(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 

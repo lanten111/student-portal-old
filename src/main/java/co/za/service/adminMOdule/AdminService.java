@@ -1,9 +1,6 @@
-package co.za.service.admin;
+package co.za.service.adminMOdule;
 
 import co.za.dto.*;
-import co.za.service.StudentModule.StudentService;
-import co.za.service.lecturer.LecturerService;
-
 import java.util.List;
 
 public interface AdminService {
